@@ -1,12 +1,12 @@
 # Vortex
 
-<img src="https://github.com/TheLayersProject/Vortex/blob/main/images/vortex_logo.svg?raw=true" alt="Vortex Logo Image" width="100px"/>
-
-Vortex is a C++ library that implements a feature-rich template window.
+<img src="https://github.com/TheLayersProject/Vortex/blob/main/images/vortex_logo.svg?raw=true" alt="Vortex Logo Image" width="50px"/>
 
 ### Caution:
 
 **Vortex is still under active development. It is not yet recommended for production use. Developers should proceed with caution.**
+
+Vortex is a C++ library that implements a feature-rich template window.
 
 ## Vortex Development
 
