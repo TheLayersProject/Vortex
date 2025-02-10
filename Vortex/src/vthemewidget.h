@@ -17,48 +17,41 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VSETTINGSMENU_H
-#define VSETTINGSMENU_H
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#ifndef VTHEMEWIDGET_H
+#define VTHEMEWIDGET_H
 
 #include <Vortex/vortex_global.h>
 
-#include <QLayers/qlgraphic.h>
+#include <QVBoxLayout>
+#include <QLayers/qllabel.h>
+#include <QLayers/qlscrollarea.h>
 #include <QLayers/qlwidget.h>
 
-namespace Vortex{
-
-	class VSettingsTab;
-	class VAppearanceWidget;
-
-	class VSettingsMenu : public QLayers::QLWidget
+namespace Vortex {
+	class VThemeWidget : public QLayers::QLWidget
 	{
 		Q_OBJECT
 
 	public:
-		VSettingsMenu(QWidget* parent = nullptr);
-
-		void add_settings_tab(const QLayers::QLGraphic& icon, const QString& label_text);
-
-		int largest_tab_index() const;
-
-		int recommended_minimum_tab_width() const;
-
-		VAppearanceWidget* appearance_widget() const;
+		VThemeWidget(QWidget* parent = nullptr);
 
 	private:
 		void init_layout();
+		void init_theme_scroller();
 
-		QVBoxLayout* m_sidebar_layout = new QVBoxLayout;
+		void update_active_theme_displayer();
 
-		QList<VSettingsTab*> m_settings_tabs;
+		QLWidget* m_options_bar{ new QLWidget };
 
-		QLWidget* m_sidebar{ new QLWidget };
+		QLWidget* m_active_theme_displayer{ new QLWidget };
 
-		VAppearanceWidget* m_appearance_widget;
+		QLayers::QLLabel* m_theme_label{ new QLayers::QLLabel("Theme") };
+		QLayers::QLLabel* m_publisher_label{ new QLayers::QLLabel("Publisher") };
+
+		QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
+		QWidget* m_theme_scroller_widget{ new QWidget };
+		QVBoxLayout* theme_buttons_vbox{ new QVBoxLayout };
 	};
 }
 
-#endif // !VSETTINGSMENU_H
+#endif // !VTHEMEWIDGET_H

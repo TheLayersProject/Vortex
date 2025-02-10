@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of Vortex.
  *
@@ -72,6 +72,8 @@ public:
 
 	void apply_theme(Layers::LTheme* theme);
 
+	bool toggle_style(const Layers::LString& style);
+
 	virtual QList<QLayers::QLDefinable*> child_qldefinables(
 		Qt::FindChildOptions options = Qt::FindDirectChildrenOnly
 	) override;
@@ -117,6 +119,7 @@ private:
 	void init_directories();
 	void init_fonts();
 	void init_theme();
+	void init_styles();
 	void init_latest_version();
 
 	bool m_initialized{ false };

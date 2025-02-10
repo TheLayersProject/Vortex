@@ -17,48 +17,34 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VSETTINGSMENU_H
-#define VSETTINGSMENU_H
+#ifndef VSTYLESWIDGET_H
+#define VSTYLESWIDGET_H
 
-#include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QLayers/qlscrollarea.h>
+#include <QLayers/qlwidget.h>
 
 #include <Vortex/vortex_global.h>
 
-#include <QLayers/qlgraphic.h>
-#include <QLayers/qlwidget.h>
+namespace Vortex {
 
-namespace Vortex{
-
-	class VSettingsTab;
-	class VAppearanceWidget;
-
-	class VSettingsMenu : public QLayers::QLWidget
+	class VStylesWidget : public QLayers::QLWidget
 	{
 		Q_OBJECT
 
 	public:
-		VSettingsMenu(QWidget* parent = nullptr);
-
-		void add_settings_tab(const QLayers::QLGraphic& icon, const QString& label_text);
-
-		int largest_tab_index() const;
-
-		int recommended_minimum_tab_width() const;
-
-		VAppearanceWidget* appearance_widget() const;
+		VStylesWidget(QWidget* parent = nullptr);
 
 	private:
 		void init_layout();
+		void init_style_scroller();
 
-		QVBoxLayout* m_sidebar_layout = new QVBoxLayout;
+		QLWidget* m_options_bar{ new QLWidget };
 
-		QList<VSettingsTab*> m_settings_tabs;
-
-		QLWidget* m_sidebar{ new QLWidget };
-
-		VAppearanceWidget* m_appearance_widget;
+		QLayers::QLScrollArea* m_style_scroller{ new QLayers::QLScrollArea };
+		QLWidget* m_style_scroller_widget{ new QLWidget };
+		QVBoxLayout* style_buttons_vbox{ new QVBoxLayout };
 	};
 }
 
-#endif // !VSETTINGSMENU_H
+#endif // !VSTYLESWIDGET_H

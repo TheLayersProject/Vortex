@@ -17,48 +17,42 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VSETTINGSMENU_H
-#define VSETTINGSMENU_H
-
-#include <QHBoxLayout>
-#include <QVBoxLayout>
+#ifndef VAPPEARANCEWIDGET_H
+#define VAPPEARANCEWIDGET_H
 
 #include <Vortex/vortex_global.h>
 
-#include <QLayers/qlgraphic.h>
-#include <QLayers/qlwidget.h>
+
+//#include <QLayers/qlbutton.h>
+#include <Vortex/vtabbar.h>
+//#include <Vortex/vthemecombobox.h>
+
+#include "vthemewidget.h"
+#include "vstyleswidget.h"
+
 
 namespace Vortex{
 
-	class VSettingsTab;
-	class VAppearanceWidget;
-
-	class VSettingsMenu : public QLayers::QLWidget
+	class VAppearanceWidget : public QLayers::QLWidget
 	{
 		Q_OBJECT
 
 	public:
-		VSettingsMenu(QWidget* parent = nullptr);
-
-		void add_settings_tab(const QLayers::QLGraphic& icon, const QString& label_text);
-
-		int largest_tab_index() const;
-
-		int recommended_minimum_tab_width() const;
-
-		VAppearanceWidget* appearance_widget() const;
+		VAppearanceWidget(QWidget* parent = nullptr);
 
 	private:
 		void init_layout();
 
-		QVBoxLayout* m_sidebar_layout = new QVBoxLayout;
+		VTabBar* m_tab_bar{ new VTabBar };
 
-		QList<VSettingsTab*> m_settings_tabs;
+		QLWidget* m_tab_bar_divider{ new QLWidget };
 
-		QLWidget* m_sidebar{ new QLWidget };
+		QLayers::QLLabel* m_theme_label{ new QLayers::QLLabel("Theme") };
 
-		VAppearanceWidget* m_appearance_widget;
+		VThemeWidget* m_theme_widget{ new VThemeWidget };
+
+		VStylesWidget* m_styles_widget{ new VStylesWidget };
 	};
 }
 
-#endif // !VSETTINGSMENU_H
+#endif // !VAPPEARANCEWIDGET_H

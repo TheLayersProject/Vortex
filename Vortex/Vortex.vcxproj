@@ -101,13 +101,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtMoc Include="include\Vortex\vthemecomboboxitemmodel.h" />
-    <QtMoc Include="include\Vortex\vthemecomboboxitemdelegate.h" />
-    <QtMoc Include="include\Vortex\vthemecombobox.h" />
+    <QtMoc Include="include\Vortex\vstylebutton.h" />
+    <QtMoc Include="include\Vortex\vthemebutton.h" />
+    <QtMoc Include="src\vstyleswidget.h" />
+    <QtMoc Include="src\vthemewidget.h" />
+    <QtMoc Include="src\vappearancewidget.h" />
     <QtMoc Include="include\Vortex\vupdatedialog.h" />
     <ClInclude Include="include\Vortex\vortex_export.h" />
     <ClInclude Include="include\Vortex\vortex_init.h" />
-    <QtMoc Include="src\vthemeswidget.h" />
     <QtMoc Include="src\vsettingstab.h" />
     <QtMoc Include="src\vsettingsmenu.h" />
     <QtMoc Include="src\vmainwindowtitlebar.h" />
@@ -120,9 +121,11 @@
     <ClInclude Include="include\Vortex\vortex_global.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\vthemecombobox.cpp" />
-    <ClCompile Include="src\vthemecomboboxitemdelegate.cpp" />
-    <ClCompile Include="src\vthemecomboboxitemmodel.cpp" />
+    <ClCompile Include="src\vstylebutton.cpp" />
+    <ClCompile Include="src\vstyleswidget.cpp" />
+    <ClCompile Include="src\vthemebutton.cpp" />
+    <ClCompile Include="src\vthemewidget.cpp" />
+    <ClCompile Include="src\vappearancewidget.cpp" />
     <ClCompile Include="src\vupdatedialog.cpp" />
     <ClCompile Include="src\vapplication.cpp" />
     <ClCompile Include="src\vdownloader.cpp" />
@@ -133,7 +136,6 @@
     <ClCompile Include="src\vsettingstab.cpp" />
     <ClCompile Include="src\vtab.cpp" />
     <ClCompile Include="src\vtabbar.cpp" />
-    <ClCompile Include="src\vthemeswidget.cpp" />
     <ClCompile Include="src\vortex_init.cpp" />
   </ItemGroup>
   <ItemGroup>

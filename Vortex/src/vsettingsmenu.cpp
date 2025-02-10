@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of Vortex.
  *
@@ -22,14 +22,14 @@
 #include <QMouseEvent>
 
 #include "vsettingstab.h"
-#include "vthemeswidget.h"
+#include "vappearancewidget.h"
 
 using QLayers::QLGraphic;
 using Vortex::VSettingsMenu;
-using Vortex::VThemesWidget;
+using Vortex::VAppearanceWidget;
 
 VSettingsMenu::VSettingsMenu(QWidget* parent) :
-	m_themes_widget{ new VThemesWidget },
+	m_appearance_widget{ new VAppearanceWidget },
 	QLWidget(parent)
 {
 	init_layout();
@@ -37,10 +37,10 @@ VSettingsMenu::VSettingsMenu(QWidget* parent) :
 	set_object_name("Settings Menu");
 
 	//m_themes_settings_panel->hide();
-	m_themes_widget->setMouseTracking(true);
+	m_appearance_widget->setMouseTracking(true);
 	
 	// Add Themes Settings Tab
-	add_settings_tab(QLGraphic(":/images/themes_icon.svg", QSize(25, 25)), "Themes");
+	add_settings_tab(QLGraphic(":/images/themes_icon.svg", QSize(25, 25)), "Appearance");
 	m_settings_tabs.last()->set_object_name("Themes Settings Tab");
 	//connect(m_settings_tabs.last(), &VSettingsTab::clicked, [this] { m_app_preferences_settings_panel->hide(); m_themes_settings_panel->show(); });
 
@@ -109,9 +109,9 @@ int VSettingsMenu::recommended_minimum_tab_width() const
 	return tab_width;
 }
 
-VThemesWidget* VSettingsMenu::themes_widget() const
+VAppearanceWidget* VSettingsMenu::appearance_widget() const
 {
-	return m_themes_widget;
+	return m_appearance_widget;
 }
 
 void VSettingsMenu::init_layout()
@@ -131,7 +131,7 @@ void VSettingsMenu::init_layout()
 	main_layout->setContentsMargins(0, 0, 0, 0);
 	main_layout->setSpacing(0);
 	main_layout->addWidget(m_sidebar);
-	main_layout->addWidget(m_themes_widget);
+	main_layout->addWidget(m_appearance_widget);
 
 	setLayout(main_layout);
 }

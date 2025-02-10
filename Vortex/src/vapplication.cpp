@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of Vortex.
  *
@@ -29,11 +29,14 @@
 #include <QWidget>
 #include <Layers/lcontroller.h>
 #include <Layers/lpaths.h>
+#include <Layers/lstyle.h>
 #include <Vortex/vdownloader.h>
 #include <Vortex/vgithubrepo.h>
 
 using Layers::LAttribute;
 using Layers::LString;
+using Layers::LStyle;
+using Layers::LStyleList;
 using Layers::LTheme;
 using Layers::LDefinable;
 using QLayers::QLDefinable;
@@ -156,6 +159,22 @@ void VApplication::apply_theme(LTheme* theme)
 	//}
 }
 
+bool VApplication::toggle_style(const Layers::LString& style_name)
+{
+	bool style_applied = lController.toggle_style(style_name);
+
+	QStringList active_style_IDs;
+
+	for (LStyle* style : lController.active_styles())
+	{
+		active_style_IDs.push_back(style->object_name().c_str());
+	}
+
+	m_settings.setValue("styles/active_styles", active_style_IDs);
+
+	return style_applied;
+}
+
 QList<QLDefinable*> VApplication::child_qldefinables(Qt::FindChildOptions options)
 {
 	QList<QLDefinable*> child_qldefinables;
@@ -208,6 +227,7 @@ void VApplication::init()
 		load_resource_theme(":/themes/light.json");
 
 		init_theme();
+		init_styles();
 
 		m_initialized = true;
 	}
@@ -428,6 +448,28 @@ void VApplication::init_theme()
 	//	apply_theme(m_themes[active_theme_id]);
 	//else
 	//	apply_theme(m_themes["Dark"]);
+}
+
+void VApplication::init_styles()
+{
+	QVariant _active_style_IDs = m_settings.value("styles/active_styles");
+
+	if (_active_style_IDs.isValid())
+	{
+		QStringList active_style_IDs = _active_style_IDs.toStringList();
+		for (const QString& active_style_ID : active_style_IDs)
+		{
+			// Process each enabled style
+			qDebug() << "Active style:" << style;
+
+			lController.toggle_style(active_style_ID.toStdString().c_str());
+		}
+	}
+	else
+	{
+		// Handle the case where no styles are enabled
+		qDebug() << "No styles enabled.";
+	}
 }
 
 void VApplication::init_latest_version()

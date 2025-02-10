@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of Vortex.
  *
@@ -17,36 +17,38 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VTHEMECOMBOBOXITEMDELEGATE_H
-#define VTHEMECOMBOBOXITEMDELEGATE_H
+#ifndef VTHEMEBUTTON_H
+#define VTHEMEBUTTON_H
 
 #include "vortex_global.h"
 #include "vortex_export.h"
 
-#include <QLayers/qlcomboboxitemdelegate.h>
+#include <Layers/ltheme.h>
+
+#include <QLayers/qllabel.h>
+#include <QLayers/qlwidget.h>
 
 VORTEX_NAMESPACE_BEGIN
-class VORTEX_EXPORT VThemeComboBoxItemDelegate :
-	public QLayers::QLComboBoxItemDelegate
+class VORTEX_EXPORT VThemeButton : public QLayers::QLWidget
 {
 	Q_OBJECT
 
 signals:
-	void mouse_moved(QPoint cursor_pos);
+	void clicked();
 
 public:
-	virtual bool editorEvent(QEvent* event,
-		QAbstractItemModel* model,
-		const QStyleOptionViewItem& option,
-		const QModelIndex& index) override;
+	VThemeButton(Layers::LTheme* theme, QWidget* parent = nullptr);
 
-	virtual void paint(QPainter* painter,
-		const QStyleOptionViewItem& option,
-		const QModelIndex& index) const override;
+protected:
+	bool eventFilter(QObject* object, QEvent* event) override;
 
 private:
-	QImage m_caution_image{ QImage(":/images/caution.png") };
+	void init_layout();
+	void init_style(Layers::LTheme* theme);
+
+	QLayers::QLLabel* m_name_label;
+	QLayers::QLLabel* m_publisher_label;
 };
 VORTEX_NAMESPACE_END
 
-#endif // VTHEMECOMBOBOXITEMDELEGATE_H
+#endif // VTHEMEBUTTON_H

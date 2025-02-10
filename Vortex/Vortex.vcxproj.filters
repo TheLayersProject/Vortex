@@ -61,19 +61,22 @@
     <QtMoc Include="src\vsettingstab.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="src\vthemeswidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="include\Vortex\vupdatedialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="include\Vortex\vthemecombobox.h">
+    <QtMoc Include="src\vappearancewidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="include\Vortex\vthemecomboboxitemdelegate.h">
+    <QtMoc Include="src\vthemewidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="include\Vortex\vthemecomboboxitemmodel.h">
+    <QtMoc Include="src\vstyleswidget.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\Vortex\vthemebutton.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="include\Vortex\vstylebutton.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -105,22 +108,25 @@
     <ClCompile Include="src\vtabbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vthemeswidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\vortex_init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\vupdatedialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vthemecombobox.cpp">
+    <ClCompile Include="src\vappearancewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vthemecomboboxitemdelegate.cpp">
+    <ClCompile Include="src\vthemewidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\vthemecomboboxitemmodel.cpp">
+    <ClCompile Include="src\vstyleswidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vthemebutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vstylebutton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
