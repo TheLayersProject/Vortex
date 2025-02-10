@@ -139,6 +139,7 @@
   <ItemGroup>
     <QtRcc Include="fonts\Roboto\roboto_font.qrc" />
     <QtRcc Include="images\images.qrc" />
+    <QtRcc Include="themes\themes.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

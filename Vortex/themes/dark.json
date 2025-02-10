@@ -1,0 +1,17 @@
+{
+    "Dark": {
+        "_meta": {
+            "lineage": []
+        },
+        "attributes": {
+            "Foreground": "#e3e3e3",
+            "Gradient": [
+                "0:#3a3c42",
+                "1:#42454d"
+            ],
+            "Primary": "#36393f",
+            "Secondary": "#2f3136",
+            "Tertiary": "#25272b"
+        }
+    }
+}

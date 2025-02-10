@@ -1,0 +1,17 @@
+{
+    "Light": {
+        "_meta": {
+            "lineage": []
+        },
+        "attributes": {
+            "Foreground": "#111111",
+            "Gradient": [
+                "0:#cfcfcf",
+                "1:#ffffff"
+            ],
+            "Primary": "#f0f0f0",
+            "Secondary": "#c0c0c0",
+            "Tertiary": "#d9d9d9"
+        }
+    }
+}

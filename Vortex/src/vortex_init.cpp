@@ -19,12 +19,26 @@
 
 #include <Vortex/vortex_init.h>
 
+#include <QDebug>
+
 #include <Layers/lstring.h>
 #include <Layers/lcontroller.h>
 
-namespace Vortex {
-    Initializer::Initializer() {
+void initialize_resources()
+{
+    Q_INIT_RESOURCE(roboto_font);
+    Q_INIT_RESOURCE(themes);
+    Q_INIT_RESOURCE(images);
+}
+
+namespace Vortex
+{
+    Initializer::Initializer()
+    {
         lController.include("Vortex (The Layers Project)/0.1.0");
+        qDebug() << "LOADED Vortex DEFINITIONS!";
+
+        initialize_resources();
     }
 
     static Initializer vortex_initializer;

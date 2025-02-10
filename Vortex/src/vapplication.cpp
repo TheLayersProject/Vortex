@@ -39,11 +39,6 @@ using Layers::LDefinable;
 using QLayers::QLDefinable;
 using Vortex::VApplication;
 
-void initializeResources() {
-        Q_INIT_RESOURCE(roboto_font);
-        Q_INIT_RESOURCE(images);
-    }
-
 LTheme* Vortex::activeTheme()
 {
 	if (vApp)
@@ -195,8 +190,6 @@ void VApplication::init()
 {
 	if (!m_initialized)
 	{
-		initializeResources();
-		
 		qRegisterMetaType<QGradientStops>("QGradientStops");
 
 		init_directories();
@@ -211,6 +204,9 @@ void VApplication::init()
 			name_parts[i].replace(0, 1, name_parts[i][0].toLower());
 		m_name_underscored = name_parts.join("_");
 
+		load_resource_theme(":/themes/dark.json");
+		load_resource_theme(":/themes/light.json");
+
 		init_theme();
 
 		m_initialized = true;
@@ -220,6 +216,25 @@ void VApplication::init()
 QString VApplication::latest_version()
 {
 	return m_latest_version;
+}
+
+void VApplication::load_resource_theme(const QString& path)
+{
+	// Open the resource file
+	QFile file(path);
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		std::cerr << "Failed to open resource file: " <<
+			path.toStdString() << std::endl;
+	}
+
+	// Read file contents
+	QTextStream in(&file);
+	QString contents = in.readAll();
+	file.close();
+	
+	add_theme(lController.load_theme(
+		Layers::remove_whitespace(contents.toStdString())));
 }
 
 //QMap<QString, LTheme*> VApplication::themes()

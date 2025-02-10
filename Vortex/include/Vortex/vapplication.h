@@ -84,6 +84,8 @@ public:
 
 	QString latest_version();
 
+	void load_resource_theme(const QString& path);
+
 	QString name();
 
 	Layers::LAttribute* primary() const;
