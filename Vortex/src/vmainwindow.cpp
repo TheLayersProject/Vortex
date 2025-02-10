@@ -28,27 +28,21 @@
 #include <QPainterPath>
 #include <Layers/lstring.h>
 #include <QLayers/qlcalculate.h>
-//#include <QLayers/qlthemecreatordialog.h>
 #include <Vortex/vapplication.h>
 
 #include "vmainwindowtitlebar.h"
 #include "vsettingsmenu.h"
-#include "vthemeswidget.h"
 
 using Layers::LString;
 
 using Vortex::VSettingsMenu;
 using Vortex::VMainWindowTitlebar;
 using Vortex::VMainWindow;
-//using QLayers::QLDefinable;
 
 VMainWindow::VMainWindow(QWidget* parent) :
 	m_titlebar{ new VMainWindowTitlebar },
 	QLWidget(parent)
 {
-	//if (vApp)
-	//	vApp->link(this, "Vortex/vmainwindow.json");
-
 	init_attributes();
 	init_layout();
 	init_titlebar_connections();
@@ -215,19 +209,8 @@ bool VMainWindow::nativeEvent(
 }
 #endif
 
-void VMainWindow::new_theme_clicked()
-{
-	//QLThemeCreatorDialog dialog;
-
-	//center(&dialog, this);
-
-	//dialog.exec();
-}
-
 void VMainWindow::init_attributes()
 {
-	//m_fill->set_link_attribute(vApp->primary());
-
 	m_border_thickness->set_value(15.0);
 	m_border_fill->set_value(std::vector<LString>({ "0:#3a3c42", "1:#42454d" }));
 	m_corner_radii_top_left->set_value(10.0);
@@ -256,10 +239,6 @@ void VMainWindow::init_titlebar_connections()
 		[this]
 		{
 			VSettingsMenu* settings_menu = new VSettingsMenu;
-
-			connect(settings_menu->themes_widget()->new_theme_button(),
-				&QLayers::QLButton::clicked,
-				this, &VMainWindow::new_theme_clicked);
 
 			open_central_widget(settings_menu,
 				QLayers::QLGraphic(":/images/settings_animated.svg", QSize(24, 24)),

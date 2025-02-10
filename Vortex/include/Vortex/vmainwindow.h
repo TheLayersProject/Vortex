@@ -51,9 +51,6 @@ protected:
 		const QByteArray& eventType, void* message, qintptr* result) override;
 #endif
 
-private slots:
-	void new_theme_clicked();
-
 private:
 	void init_attributes();
 	void init_layout();
