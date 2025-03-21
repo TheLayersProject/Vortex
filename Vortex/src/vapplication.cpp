@@ -223,11 +223,9 @@ void VApplication::init()
 			name_parts[i].replace(0, 1, name_parts[i][0].toLower());
 		m_name_underscored = name_parts.join("_");
 
-		load_resource_theme(":/themes/dark.json");
-		load_resource_theme(":/themes/light.json");
-
-		init_theme();
+		init_themes();
 		init_styles();
+		init_active_theme();
 
 		m_initialized = true;
 	}
@@ -255,6 +253,15 @@ void VApplication::load_resource_theme(const QString& path)
 	
 	add_theme(lController.load_theme(
 		Layers::remove_whitespace(contents.toStdString())));
+}
+
+void VApplication::load_themes(const QString& theme_directory)
+{
+	lController.load_themes(theme_directory.toStdString());
+
+	QStringList theme_directories = m_settings.value("themes/directories").toStringList();
+	theme_directories.append(theme_directory);
+	m_settings.setValue("themes/directories", theme_directories);
 }
 
 //QMap<QString, LTheme*> VApplication::themes()
@@ -402,8 +409,8 @@ void VApplication::init_directories()
 {
 	//QDir app_dir = app_path(m_name.toStdString());
 	QDir layers_dir = Layers::layers_path();
-	QDir themes_dir = Layers::themes_path();
-	QDir latest_T_version_dir = Layers::latest_T_version_path();
+	//QDir themes_dir = Layers::themes_path();
+	//QDir latest_T_version_dir = Layers::latest_T_version_path();
 
 	//if (!app_dir.exists())
 	//	app_dir.mkdir(".");
@@ -411,11 +418,11 @@ void VApplication::init_directories()
 	if (!layers_dir.exists())
 		layers_dir.mkdir(".");
 
-	if (!themes_dir.exists())
-		themes_dir.mkdir(".");
+	//if (!themes_dir.exists())
+	//	themes_dir.mkdir(".");
 
-	if (!latest_T_version_dir.exists())
-		latest_T_version_dir.mkdir(".");
+	//if (!latest_T_version_dir.exists())
+	//	latest_T_version_dir.mkdir(".");
 }
 
 void VApplication::init_fonts()
@@ -433,7 +440,7 @@ void VApplication::init_fonts()
 	setFont(font);
 }
 
-void VApplication::init_theme()
+void VApplication::init_active_theme()
 {
 	LString active_theme_id =
 		LString(m_settings.value("themes/active_theme").toString().toStdString().c_str());
@@ -450,6 +457,32 @@ void VApplication::init_theme()
 	//	apply_theme(m_themes["Dark"]);
 }
 
+void VApplication::init_themes()
+{
+	// Load default light and dark themes
+	load_resource_theme(":/themes/dark.json");
+	load_resource_theme(":/themes/light.json");
+
+	// Load themes from user directories (if present)
+	QVariant _theme_directories = m_settings.value("themes/directories");
+
+	if (_theme_directories.isValid())
+	{
+		QStringList theme_directories = _theme_directories.toStringList();
+		for (const QString& theme_directory : theme_directories)
+		{
+			// Process each enabled style
+			qDebug() << "Theme Directory:" << theme_directory;
+
+			lController.load_themes(theme_directory.toStdString());
+		}
+	}
+	else
+	{
+		qDebug() << "No theme directories available.";
+	}
+}
+
 void VApplication::init_styles()
 {
 	QVariant _active_style_IDs = m_settings.value("styles/active_styles");
@@ -460,14 +493,13 @@ void VApplication::init_styles()
 		for (const QString& active_style_ID : active_style_IDs)
 		{
 			// Process each enabled style
-			qDebug() << "Active style:" << style;
+			qDebug() << "Active style:" << active_style_ID;
 
 			lController.toggle_style(active_style_ID.toStdString().c_str());
 		}
 	}
 	else
 	{
-		// Handle the case where no styles are enabled
 		qDebug() << "No styles enabled.";
 	}
 }

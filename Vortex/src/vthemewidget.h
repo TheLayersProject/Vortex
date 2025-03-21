@@ -23,9 +23,9 @@
 #include <Vortex/vortex_global.h>
 
 #include <QVBoxLayout>
-#include <QLayers/qllabel.h>
+#include <Layers/ltheme.h>
+#include <QLayers/qlbutton.h>
 #include <QLayers/qlscrollarea.h>
-#include <QLayers/qlwidget.h>
 
 namespace Vortex {
 	class VThemeWidget : public QLayers::QLWidget
@@ -36,6 +36,7 @@ namespace Vortex {
 		VThemeWidget(QWidget* parent = nullptr);
 
 	private:
+		void add_theme_button(Layers::LTheme* theme);
 		void init_layout();
 		void init_theme_scroller();
 
@@ -51,6 +52,10 @@ namespace Vortex {
 		QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
 		QWidget* m_theme_scroller_widget{ new QWidget };
 		QVBoxLayout* theme_buttons_vbox{ new QVBoxLayout };
+
+		QLayers::QLButton* m_theme_directories_button{ new QLayers::QLButton(
+			QLayers::QLGraphic(":/images/theme_directories_icon.svg", QSize(25, 22))
+		) };
 	};
 }
 

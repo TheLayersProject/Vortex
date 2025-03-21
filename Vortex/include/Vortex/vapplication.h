@@ -88,6 +88,8 @@ public:
 
 	void load_resource_theme(const QString& path);
 
+	void load_themes(const QString& theme_directory);
+
 	QString name();
 
 	Layers::LAttribute* primary() const;
@@ -118,7 +120,8 @@ private:
 
 	void init_directories();
 	void init_fonts();
-	void init_theme();
+	void init_active_theme();
+	void init_themes();
 	void init_styles();
 	void init_latest_version();
 

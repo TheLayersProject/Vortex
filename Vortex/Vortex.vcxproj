@@ -101,6 +101,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <QtMoc Include="include\Vortex\vthemedirectoriesdialog.h" />
     <QtMoc Include="include\Vortex\vstylebutton.h" />
     <QtMoc Include="include\Vortex\vthemebutton.h" />
     <QtMoc Include="src\vstyleswidget.h" />
@@ -124,6 +125,7 @@
     <ClCompile Include="src\vstylebutton.cpp" />
     <ClCompile Include="src\vstyleswidget.cpp" />
     <ClCompile Include="src\vthemebutton.cpp" />
+    <ClCompile Include="src\vthemedirectoriesdialog.cpp" />
     <ClCompile Include="src\vthemewidget.cpp" />
     <ClCompile Include="src\vappearancewidget.cpp" />
     <ClCompile Include="src\vupdatedialog.cpp" />

@@ -26,7 +26,7 @@
         <file>message_box_icon.svg</file>
         <file>minimize.svg</file>
         <file>mll_icon.svg</file>
-        <file>new_theme.svg</file>
+        <file>new_theme_directory_icon.svg</file>
         <file>overrides_icon.svg</file>
         <file>panel_icon.svg</file>
         <file>separator_h_icon.svg</file>
@@ -35,6 +35,7 @@
         <file>settings_tab_icon.svg</file>
         <file>sidebar_icon.svg</file>
         <file>tab_exit.svg</file>
+        <file>theme_directories_icon.svg</file>
         <file>themes_icon.svg</file>
         <file>titlebar_icon.svg</file>
         <file>update_icon.svg</file>
