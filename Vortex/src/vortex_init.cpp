@@ -18,28 +18,40 @@
  */
 
 #include <Vortex/vortex_init.h>
+#include <Vortex/vortex_global.h>
 
 #include <QDebug>
 
 #include <Layers/lstring.h>
 #include <Layers/lcontroller.h>
 
+namespace Layers {
+    namespace Resources {
+        extern void initResources_definitions();
+    }
+}
+
 void initialize_resources()
 {
+	// Initialize Qt resources
     Q_INIT_RESOURCE(roboto_font);
     Q_INIT_RESOURCE(themes);
     Q_INIT_RESOURCE(images);
+
+    // Initialize Layers resources
+    Layers::Resources::initResources_definitions();
 }
 
-namespace Vortex
+VORTEX_NAMESPACE_BEGIN
+
+Initializer::Initializer()
 {
-    Initializer::Initializer()
-    {
-        lController.include("Vortex (The Layers Project)/0.1.0");
-        qDebug() << "LOADED Vortex DEFINITIONS!";
+    initialize_resources();
 
-        initialize_resources();
-    }
-
-    static Initializer vortex_initializer;
+    lController.include_internal("/definitions/vortex");
+    qDebug() << "Vortex: Loaded Definitions";
 }
+
+static Initializer vortex_initializer;
+
+VORTEX_NAMESPACE_END

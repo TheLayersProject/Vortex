@@ -1,0 +1,10 @@
+{
+    "/definitions/vortex": [
+        "titlebarbutton.json",
+        "vappearancewidget.json",
+        "vmainwindow.json",
+        "vsettingsmenu.json",
+        "vtabbar.json",
+        "vthemedirectoriesdialog.json"
+    ]
+}

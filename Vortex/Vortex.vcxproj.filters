@@ -135,6 +135,9 @@
     <ClCompile Include="src\vthemedirectoriesdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="definitions\definitions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="images\images.qrc">
