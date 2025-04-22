@@ -28,8 +28,8 @@ using QLayers::QLStatePool;
 using Vortex::VSettingsTab;
 
 VSettingsTab::VSettingsTab(
-	const QLGraphic& icon, const QString& label_text, QWidget* parent) :
-	m_icon_label{ new QLayers::QLLabel(icon) },
+	std::unique_ptr<QLGraphic> icon, const QString& label_text, QWidget* parent) :
+	m_icon_label{ new QLayers::QLLabel(std::move(icon)) },
 	m_text_label { new QLayers::QLLabel(label_text) },
 	QLWidget(parent)
 {
@@ -63,14 +63,19 @@ void VSettingsTab::init_attributes()
 	m_corner_radii_top_left->set_value(5.0);
 	m_corner_radii_bottom_left->set_value(5.0);
 	m_fill->set_value("#c0c0c0");
-	m_fill->create_state("Selected", "#ffffff");
+	//Layers::lMake<LAttribute>(m_fill, "Selected", "#ffffff");
+	//m_fill->create_state("Selected", "#ffffff");
 
 	m_icon_label->graphic()->svg_renderer()->color()->set_value("#a0a0a4");
-	m_icon_label->graphic()->svg_renderer()->color()->create_state(
-		"Selected", "#000000");
+	//Layers::lMake<LAttribute>(
+	//	m_icon_label->graphic()->svg_renderer()->color(),
+	//	"Selected", "#000000");
+	//m_icon_label->graphic()->svg_renderer()->color()->create_state(
+	//	"Selected", "#000000");
 
 	m_text_label->text_color()->set_value("#a0a0a4");
-	m_text_label->text_color()->create_state("Selected", "#000000");
+	//Layers::lMake<LAttribute>(m_text_label->text_color(), "Selected", "#000000");
+	//m_text_label->text_color()->create_state("Selected", "#000000");
 }
 
 int VSettingsTab::recommended_minimum_width()

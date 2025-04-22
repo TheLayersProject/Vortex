@@ -24,14 +24,14 @@
 #include <Layers/lstring.h>
 
 using Layers::LString;
-
 using QLayers::QLButton;
+using QLayers::QLGraphic;
 using QLayers::QLLabel;
 using QLayers::QLStatePool;
 using Vortex::VTab;
 
-VTab::VTab(const QLayers::QLGraphic& icon, const QString& text, QWidget* parent) :
-	m_icon_label{ new QLLabel(icon) },
+VTab::VTab(std::unique_ptr<QLGraphic> icon, const QString& text, QWidget* parent) :
+	m_icon_label{ new QLLabel(std::move(icon)) },
 	m_text_label{ new QLLabel(text) },
 	QLWidget(parent)
 {
@@ -134,7 +134,8 @@ void VTab::init()
 void VTab::init_attributes()
 {
 	m_fill->set_value("#36393f");
-	m_fill->create_state("Active", LString("#25272b"));
+	//Layers::lMake<LAttribute>(m_fill, "Active", "#25272b");
+	//m_fill->create_state("Active", LString("#25272b"));
 
 	corner_radii_top_left()->set_value(5.0);
 	corner_radii_top_right()->set_value(5.0);

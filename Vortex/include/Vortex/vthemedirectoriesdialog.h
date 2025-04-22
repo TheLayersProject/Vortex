@@ -42,7 +42,8 @@ namespace Vortex {
 
 		QLayers::QLButton* m_new_directory_button{
 			new QLayers::QLButton(
-				QLayers::QLGraphic(":/images/new_theme_directory_icon.svg", QSize(27, 26)),
+				std::make_unique<QLayers::QLGraphic>(
+					":/images/new_theme_directory_icon.svg", QSize(27, 26)),
 				"New Theme Directory") };
 	};
 }

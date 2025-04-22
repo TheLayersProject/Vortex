@@ -34,7 +34,7 @@
 #include "vsettingsmenu.h"
 
 using Layers::LString;
-
+using QLayers::QLGraphic;
 using Vortex::VSettingsMenu;
 using Vortex::VMainWindowTitlebar;
 using Vortex::VMainWindow;
@@ -91,10 +91,10 @@ void VMainWindow::open_central_widget(
 }
 
 void VMainWindow::open_central_widget(
-	QWidget* central_widget, const QLayers::QLGraphic& tab_icon_graphic,
+	QWidget* central_widget, std::unique_ptr<QLGraphic> tab_icon_graphic,
 	const QString& tab_text)
 {
-	m_titlebar->menu_tab_bar()->add_tab(tab_icon_graphic, tab_text);
+	m_titlebar->menu_tab_bar()->add_tab(std::move(tab_icon_graphic), tab_text);
 
 	_open_central_widget(central_widget);
 }
@@ -241,7 +241,8 @@ void VMainWindow::init_titlebar_connections()
 			VSettingsMenu* settings_menu = new VSettingsMenu;
 
 			open_central_widget(settings_menu,
-				QLayers::QLGraphic(":/images/settings_animated.svg", QSize(24, 24)),
+				std::make_unique<QLGraphic>(
+					":/images/settings_animated.svg", QSize(24, 24)),
 				"Settings");
 		});
 

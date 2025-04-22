@@ -28,7 +28,6 @@
 #include <QSettings>
 #include <QUuid>
 
-//#include <Layers/lapplication.h>
 #include <Layers/lattribute.h>
 #include <Layers/ltheme.h>
 
@@ -45,10 +44,7 @@ class VDownloader;
 class VGitHubRepo;
 class VMainWindow;
 
-class VORTEX_EXPORT VApplication :
-	public QApplication,
-	//public Layers::LApplication,
-	public QLayers::QLDefinable
+class VORTEX_EXPORT VApplication : public QApplication
 {
 	Q_OBJECT
 
@@ -66,17 +62,13 @@ public:
 
 	Layers::LTheme* active_theme();
 
-	void add_theme(Layers::LTheme* theme);
+	void add_theme(std::unique_ptr<Layers::LTheme> theme);
 
 	QString app_display_id() const;
 
 	void apply_theme(Layers::LTheme* theme);
 
 	bool toggle_style(const Layers::LString& style);
-
-	virtual QList<QLayers::QLDefinable*> child_qldefinables(
-		Qt::FindChildOptions options = Qt::FindDirectChildrenOnly
-	) override;
 
 	void download_and_install_update();
 
@@ -92,8 +84,6 @@ public:
 
 	QString name();
 
-	Layers::LAttribute* primary() const;
-
 	void reapply_theme();
 
 	void set_github_repo(const QString& github_repo_url);
@@ -106,19 +96,11 @@ public:
 
 	Layers::LTheme* theme(const QString& theme_id);
 
-	//QMap<QString, Layers::LTheme*> themes();
-
 	bool update_available();
 
 	static QString version();
 
-public slots:
-	void rename_theme(const QString& old_name, const QString& new_name);
-
 private:
-	void _clear_theme();
-
-	void init_directories();
 	void init_fonts();
 	void init_active_theme();
 	void init_themes();
@@ -126,24 +108,6 @@ private:
 	void init_latest_version();
 
 	bool m_initialized{ false };
-
-	Layers::LAttribute* m_foreground{
-		new Layers::LAttribute("Foreground", "#e3e3e3", this) };
-
-	Layers::LAttribute* m_gradient{
-		new Layers::LAttribute("Gradient",
-			std::vector<Layers::LString>({ Layers::LString("0:#3a3c42"), Layers::LString("1:#42454d") }), this) };
-
-	Layers::LAttribute* m_primary{
-		new Layers::LAttribute("Primary", "#36393f", this)};
-
-	Layers::LAttribute* m_secondary{
-		new Layers::LAttribute("Secondary", "#2f3136", this) };
-
-	Layers::LAttribute* m_tertiary{
-		new Layers::LAttribute("Tertiary", "#25272b", this) };
-
-	//Layers::LTheme* m_active_theme{ nullptr };
 
 	VDownloader* m_downloader{ nullptr };
 
@@ -163,13 +127,10 @@ private:
 
 	QSettings m_settings;
 
-	//QMap<QString, Layers::LTheme*> m_themes;
-
 	QUuid m_uuid;
 };
 VORTEX_NAMESPACE_END
 
 #define vApp (static_cast<Vortex::VApplication*>(qApp))
-//#define vApp (static_cast<Vortex::VApplication*>(lApp))
 
 #endif // !VAPPLICATION_H

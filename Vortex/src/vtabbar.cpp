@@ -22,6 +22,7 @@
 #include <QEvent>
 #include <QResizeEvent>
 
+using QLayers::QLGraphic;
 using Vortex::VTab;
 using Vortex::VTabBar;
 
@@ -31,9 +32,9 @@ VTabBar::VTabBar(QWidget* parent) : QLWidget(parent)
 	set_object_name("Tab Bar");
 }
 
-void VTabBar::add_tab(const QLayers::QLGraphic& icon, const QString& text)
+void VTabBar::add_tab(std::unique_ptr<QLGraphic> icon, const QString& text)
 {
-	_add_tab(new VTab(icon, text));
+	_add_tab(new VTab(std::move(icon), text));
 }
 
 void VTabBar::add_tab(const QString& text)

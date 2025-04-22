@@ -40,7 +40,7 @@ public:
 	void open_central_widget(QWidget* central_widget, const QString& tab_text);
 
 	void open_central_widget(
-		QWidget* central_widget, const QLayers::QLGraphic& tab_icon_graphic,
+		QWidget* central_widget, std::unique_ptr<QLayers::QLGraphic> tab_icon_graphic,
 		const QString& tab_text);
 
 	virtual void update() override;

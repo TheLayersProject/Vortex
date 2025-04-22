@@ -35,7 +35,7 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : QLDialog("Th
 {
 	init_layout();
 	init_directory_list();
-	set_icon(QLGraphic(":/images/theme_directories_icon.svg", QSize(25, 22)));
+	set_icon(std::make_unique<QLGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22)));
 	set_object_name("Theme Directories Dialog");
 	setFixedSize(620, 370);
 
@@ -78,7 +78,7 @@ void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
 	if (definition())
 	{
 		directory_label->apply_definition(
-			definition()->find_item(directory_label->object_name()));
+			definition()->find_item(directory_label->name()));
 	}
 
 	layout_directory_labels->addWidget(directory_label);

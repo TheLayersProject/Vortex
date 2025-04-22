@@ -40,7 +40,7 @@ namespace Vortex{
 	public:
 		VSettingsMenu(QWidget* parent = nullptr);
 
-		void add_settings_tab(const QLayers::QLGraphic& icon, const QString& label_text);
+		void add_settings_tab(std::unique_ptr<QLayers::QLGraphic> icon, const QString& label_text);
 
 		int largest_tab_index() const;
 

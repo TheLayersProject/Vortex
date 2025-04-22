@@ -47,19 +47,19 @@ namespace Vortex{
 
 		QLayers::QLButton* m_settings_button{
 			new QLayers::QLButton(
-				QLayers::QLGraphic(":/images/settings.svg", QSize(20, 20))) };
+				std::make_unique<QLayers::QLGraphic>(":/images/settings.svg", QSize(20, 20))) };
 
 		QLayers::QLButton* m_minimize_button{
 			new QLayers::QLButton(
-				QLayers::QLGraphic(":/images/minimize.svg", QSize(20, 20))) };
+				std::make_unique<QLayers::QLGraphic>(":/images/minimize.svg", QSize(20, 20))) };
 
 		QLayers::QLButton* m_maximize_button{
 			new QLayers::QLButton(
-				QLayers::QLGraphic(":/images/maximize.svg", QSize(20, 20))) };
+				std::make_unique<QLayers::QLGraphic>(":/images/maximize.svg", QSize(20, 20))) };
 
 		QLayers::QLButton* m_exit_button{
 			new QLayers::QLButton(
-				QLayers::QLGraphic(":/images/exit.svg", QSize(20, 20))) };
+				std::make_unique<QLayers::QLGraphic>(":/images/exit.svg", QSize(20, 20))) };
 
 		VTabBar* m_menu_tab_bar{ new VTabBar };
 	};

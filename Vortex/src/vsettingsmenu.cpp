@@ -40,8 +40,10 @@ VSettingsMenu::VSettingsMenu(QWidget* parent) :
 	m_appearance_widget->setMouseTracking(true);
 	
 	// Add Themes Settings Tab
-	add_settings_tab(QLGraphic(":/images/themes_icon.svg", QSize(25, 25)), "Appearance");
-	m_settings_tabs.last()->set_object_name("Themes Settings Tab");
+	add_settings_tab(
+		std::make_unique<QLGraphic>(":/images/themes_icon.svg", QSize(25, 25)),
+		"Appearance");
+	m_settings_tabs.last()->set_object_name("Themes Settings Tab"); // TODO: Change name to "Appearance Settings Tab" here and in definition
 	//connect(m_settings_tabs.last(), &VSettingsTab::clicked, [this] { m_app_preferences_settings_panel->hide(); m_themes_settings_panel->show(); });
 
 	m_settings_tabs.first()->select_states()->set_state("Selected");
@@ -52,9 +54,9 @@ VSettingsMenu::VSettingsMenu(QWidget* parent) :
 	m_sidebar->fill()->set_value("#c0c0c0");
 }
 
-void VSettingsMenu::add_settings_tab(const QLGraphic& icon, const QString& label_text)
+void VSettingsMenu::add_settings_tab(std::unique_ptr<QLGraphic> icon, const QString& label_text)
 {
-	VSettingsTab* settings_tab = new VSettingsTab(icon, label_text);
+	VSettingsTab* settings_tab = new VSettingsTab(std::move(icon), label_text);
 
 	for (VSettingsTab* st : m_settings_tabs)
 	{

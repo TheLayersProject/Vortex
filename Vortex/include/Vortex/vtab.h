@@ -38,7 +38,7 @@ signals:
 	void closed();
 
 public:
-	VTab(const QLayers::QLGraphic& icon,
+	VTab(std::unique_ptr<QLayers::QLGraphic> icon,
 		const QString& text, QWidget* parent = nullptr);
 
 	VTab(const QString& text, QWidget* parent = nullptr);
@@ -65,7 +65,7 @@ private:
 
 	QLayers::QLButton* m_close_button
 		{ new QLayers::QLButton(
-			QLayers::QLGraphic(":/images/tab_exit.svg", QSize(16, 17))) };
+			std::make_unique<QLayers::QLGraphic>(":/images/tab_exit.svg", QSize(16, 17))) };
 
 	QLayers::QLLabel* m_icon_label{ nullptr };
 

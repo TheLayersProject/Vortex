@@ -39,7 +39,7 @@ namespace Vortex{
 
 	public:
 		VSettingsTab(
-			const QLayers::QLGraphic& icon,
+			std::unique_ptr<QLayers::QLGraphic> icon,
 			const QString& label_text, QWidget* parent = nullptr);
 
 		int recommended_minimum_width();

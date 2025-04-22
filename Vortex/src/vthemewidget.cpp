@@ -114,7 +114,7 @@ void VThemeWidget::init_theme_scroller()
 {
 	for (auto& [theme_id, theme] : lController.themes())
 	{
-		add_theme_button(theme);
+		add_theme_button(theme.get());
 	}
 }
 

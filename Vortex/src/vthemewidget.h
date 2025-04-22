@@ -54,7 +54,7 @@ namespace Vortex {
 		QVBoxLayout* theme_buttons_vbox{ new QVBoxLayout };
 
 		QLayers::QLButton* m_theme_directories_button{ new QLayers::QLButton(
-			QLayers::QLGraphic(":/images/theme_directories_icon.svg", QSize(25, 22))
+			std::make_unique<QLayers::QLGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22))
 		) };
 	};
 }

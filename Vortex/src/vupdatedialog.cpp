@@ -39,7 +39,7 @@ VUpdateDialog::VUpdateDialog(
 	QLDialog("Update Available", parent)
 {
 	setFixedSize(525, 300);
-	set_icon(QLGraphic(":/images/update_icon.svg"));
+	set_icon(std::make_unique<QLGraphic>(":/images/update_icon.svg"));
 	set_object_name("Update Dialog");
 
 	m_remind_me_later_button->set_object_name("Remind Me Later Button");
