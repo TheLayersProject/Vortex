@@ -32,14 +32,18 @@ VTabBar::VTabBar(QWidget* parent) : QLWidget(parent)
 	set_object_name("Tab Bar");
 }
 
-void VTabBar::add_tab(std::unique_ptr<QLGraphic> icon, const QString& text)
+VTab* VTabBar::add_tab(std::unique_ptr<QLGraphic> icon, const QString& text)
 {
-	_add_tab(new VTab(std::move(icon), text));
+	VTab* tab = new VTab(std::move(icon), text);
+	_add_tab(tab);
+	return tab;
 }
 
-void VTabBar::add_tab(const QString& text)
+VTab* VTabBar::add_tab(const QString& text)
 {
-	_add_tab(new VTab(text));
+	VTab* tab = new VTab(text);
+	_add_tab(tab);
+	return tab;
 }
 
 int VTabBar::current_index() const

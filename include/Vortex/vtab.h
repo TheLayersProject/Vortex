@@ -49,6 +49,10 @@ public:
 
 	QLayers::QLLabel* icon_label() const;
 
+	void set_icon(std::unique_ptr<QLayers::QLGraphic> icon);
+
+	void set_text(const QString& text);
+
 	QLayers::QLStatePool* status_states() const;
 
 	QLayers::QLLabel* text_label() const;

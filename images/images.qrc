@@ -21,6 +21,7 @@
         <file>label_icon.svg</file>
         <file>layers.imgseq</file>
         <file>layers_2d.png</file>
+        <file>layers_logo.svg</file>
         <file>link_arrow.svg</file>
         <file>maximize.svg</file>
         <file>message_box_icon.svg</file>
@@ -39,5 +40,6 @@
         <file>themes_icon.svg</file>
         <file>titlebar_icon.svg</file>
         <file>update_icon.svg</file>
+        <file>vortex_logo.svg</file>
     </qresource>
 </RCC>

@@ -42,9 +42,9 @@ signals:
 public:
 	VTabBar(QWidget* parent = nullptr);
 
-	void add_tab(std::unique_ptr<QLayers::QLGraphic> icon, const QString& text);
+	VTab* add_tab(std::unique_ptr<QLayers::QLGraphic> icon, const QString& text);
 
-	void add_tab(const QString& text);
+	VTab* add_tab(const QString& text);
 
 	int current_index() const;
 

@@ -23,6 +23,7 @@
 #include <QVBoxLayout>
 
 #include <QLayers/qlwidget.h>
+#include "vtab.h"
 
 #include "vortex_global.h"
 #include "vortex_export.h"
@@ -37,9 +38,9 @@ class VORTEX_EXPORT VMainWindow : public QLayers::QLWidget
 public:
 	VMainWindow(QWidget* parent = nullptr);
 
-	void open_central_widget(QWidget* central_widget, const QString& tab_text);
+	VTab* open_central_widget(QWidget* central_widget, const QString& tab_text);
 
-	void open_central_widget(
+	VTab* open_central_widget(
 		QWidget* central_widget, std::unique_ptr<QLayers::QLGraphic> tab_icon_graphic,
 		const QString& tab_text);
 

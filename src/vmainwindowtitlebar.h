@@ -20,8 +20,6 @@
 #ifndef VMAINWINDOWTITLEBAR_H
 #define VMAINWINDOWTITLEBAR_H
 
-#include <QLayers/qlayers_global.h>
-
 #include <Vortex/vtabbar.h>
 
 namespace Vortex{

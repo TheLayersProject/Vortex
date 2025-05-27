@@ -31,6 +31,7 @@
 #include <Layers/lcontroller.h>
 #include <Layers/lpaths.h>
 #include <Layers/lstyle.h>
+#include <QLayers/qllogger.h>
 #include <Vortex/vdownloader.h>
 #include <Vortex/vgithubrepo.h>
 
@@ -121,25 +122,26 @@ QFile* VApplication::icon_file()
 
 void VApplication::init()
 {
-	if (!m_initialized)
-	{
-		qRegisterMetaType<QGradientStops>("QGradientStops");
+	if (m_initialized) return;
+	
+	qRegisterMetaType<QGradientStops>("QGradientStops");
 
-		init_fonts();
-		init_latest_version();
-		setEffectEnabled(Qt::UI_AnimateCombo, false);
+	Layers::set_log_function(&QLayers::QLLog_Layers);
 
-		QStringList name_parts = m_name.split(' ', Qt::SkipEmptyParts);
-		for (int i = 0; i < name_parts.size(); i++)
-			name_parts[i].replace(0, 1, name_parts[i][0].toLower());
-		m_name_underscored = name_parts.join("_");
+	init_fonts();
+	init_latest_version();
+	setEffectEnabled(Qt::UI_AnimateCombo, false);
 
-		init_themes();
-		init_styles();
-		init_active_theme();
+	QStringList name_parts = m_name.split(' ', Qt::SkipEmptyParts);
+	for (int i = 0; i < name_parts.size(); i++)
+		name_parts[i].replace(0, 1, name_parts[i][0].toLower());
+	m_name_underscored = name_parts.join("_");
 
-		m_initialized = true;
-	}
+	init_themes();
+	init_styles();
+	init_active_theme();
+
+	m_initialized = true;
 }
 
 QString VApplication::latest_version()

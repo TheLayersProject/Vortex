@@ -1,0 +1,88 @@
+cmake_minimum_required(VERSION 3.22)
+project(Vortex)
+
+# Set the C++ standard
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+if (WIN32)
+    set(CMAKE_PREFIX_PATH "C:/Qt/6.9.0/msvc2022_64")
+else()
+    set(CMAKE_PREFIX_PATH "/Users/huntermalm/Qt/6.9.0/macos")
+endif()
+
+set(LAYERS_DIR $ENV{Layers})
+set(QLAYERS_DIR $ENV{QLayers})
+
+# Find Qt modules
+find_package(Qt6 6.9.0 COMPONENTS Core Gui Widgets Svg Network REQUIRED)
+
+# Set the definitions for Vortex
+file(GLOB DEFINITIONS "definitions/definitions.cpp")
+
+# Set the source files for Vortex
+file(GLOB SOURCES "src/*.cpp")
+
+# Set the header files for Vortex (public and private)
+file(GLOB PUBLIC_HEADERS "include/Vortex/*.h")
+file(GLOB PRIVATE_HEADERS "src/*.h")
+
+# Combine all headers for moc generation
+set(ALL_HEADERS ${PUBLIC_HEADERS} ${PRIVATE_HEADERS})
+
+# Set the resource files
+set(ROBOTOFONT "fonts/Roboto/roboto_font.qrc")
+set(IMAGES "images/images.qrc")
+set(THEMES "themes/themes.qrc")
+
+# Generate resource files
+qt6_add_resources(ROBOTOFONT_RC ${ROBOTOFONT})
+qt6_add_resources(IMAGES_RC ${IMAGES})
+qt6_add_resources(THEMES_RC ${THEMES})
+
+# Generate moc files for all headers with Q_OBJECT
+qt6_wrap_cpp(MOC_FILES ${ALL_HEADERS})
+
+# Add the shared library target
+add_library(Vortex SHARED ${SOURCES} ${DEFINITIONS} ${MOC_FILES} ${ROBOTOFONT_RC} ${IMAGES_RC} ${THEMES_RC})
+
+# Add the VORTEX_LIB definition when building the library
+target_compile_definitions(Vortex PRIVATE VORTEX_LIB)
+
+# Include directories
+target_include_directories(Vortex PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${LAYERS_DIR}/include"
+    "${QLAYERS_DIR}/include"
+)
+
+if(WIN32)
+    set(LAYERS_LIBRARY_DEBUG "${LAYERS_DIR}/lib/Debug/Layersd.lib")
+    set(LAYERS_LIBRARY_RELEASE "${LAYERS_DIR}/lib/Release/Layers.lib")
+    set(QLAYERS_LIBRARY_DEBUG "${QLAYERS_DIR}/lib/Debug/QLayersd.lib")
+    set(QLAYERS_LIBRARY_RELEASE "${QLAYERS_DIR}/lib/Release/QLayers.lib")
+else()
+    set(LAYERS_LIBRARY_DEBUG "${LAYERS_DIR}/lib/libLayersd.dylib")
+    set(LAYERS_LIBRARY_RELEASE "${LAYERS_DIR}/lib/libLayers.dylib")
+    set(QLAYERS_LIBRARY_DEBUG "${QLAYERS_DIR}/lib/libQLayersd.dylib")
+    set(QLAYERS_LIBRARY_RELEASE "${QLAYERS_DIR}/lib/libQLayers.dylib")
+endif()
+
+target_link_libraries(Vortex PRIVATE
+    $<$<CONFIG:Debug>:${LAYERS_LIBRARY_DEBUG} ${QLAYERS_LIBRARY_DEBUG}>
+    $<$<CONFIG:Release>:${LAYERS_LIBRARY_RELEASE} ${QLAYERS_LIBRARY_RELEASE}>
+    Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Svg Qt6::Network
+)
+
+# Install rules
+install(TARGETS Vortex DESTINATION lib)
+install(DIRECTORY include/Vortex DESTINATION include)
+
+# Set the output directory for the built library
+set_target_properties(Vortex PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin"  # for .dll
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib"  # for .lib
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib"  # for .lib
+    DEBUG_POSTFIX "d"
+)

@@ -71,6 +71,28 @@ QLLabel* VTab::icon_label() const
 	return m_icon_label;
 }
 
+void VTab::set_icon(std::unique_ptr<QLayers::QLGraphic> icon)
+{
+	if (m_icon_label)
+	{
+		m_icon_label->set_graphic(std::move(icon));
+	}
+	else
+	{
+		m_icon_label = new QLLabel(std::move(icon));
+		main_layout->insertWidget(0, m_icon_label);
+	}
+
+	m_icon_label->setAlignment(Qt::AlignCenter);
+	m_icon_label->setMinimumWidth(42);
+	m_icon_label->set_object_name("Icon");
+}
+
+void VTab::set_text(const QString& text)
+{
+	m_text_label->setText(text);
+}
+
 QLStatePool* VTab::status_states() const
 {
 	return m_status_states;
@@ -112,6 +134,7 @@ void VTab::init()
 	{
 		main_layout->setContentsMargins(2, 0, 4, 0);
 
+		m_icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
 		m_icon_label->setAlignment(Qt::AlignCenter);
 		m_icon_label->setMinimumWidth(42);
 		m_icon_label->set_object_name("Icon");

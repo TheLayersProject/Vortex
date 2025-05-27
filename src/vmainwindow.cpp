@@ -35,9 +35,10 @@
 
 using Layers::LString;
 using QLayers::QLGraphic;
-using Vortex::VSettingsMenu;
 using Vortex::VMainWindowTitlebar;
 using Vortex::VMainWindow;
+using Vortex::VSettingsMenu;
+using Vortex::VTab;
 
 VMainWindow::VMainWindow(QWidget* parent) :
 	m_titlebar{ new VMainWindowTitlebar },
@@ -82,21 +83,26 @@ VMainWindow::VMainWindow(QWidget* parent) :
 	apply_definition(lController.find_definition(path()));
 }
 
-void VMainWindow::open_central_widget(
+VTab* VMainWindow::open_central_widget(
 	QWidget* central_widget, const QString& tab_text)
 {
-	m_titlebar->menu_tab_bar()->add_tab(tab_text);
+	VTab* tab = m_titlebar->menu_tab_bar()->add_tab(tab_text);
 
 	_open_central_widget(central_widget);
+
+	return tab;
 }
 
-void VMainWindow::open_central_widget(
+VTab* VMainWindow::open_central_widget(
 	QWidget* central_widget, std::unique_ptr<QLGraphic> tab_icon_graphic,
 	const QString& tab_text)
 {
-	m_titlebar->menu_tab_bar()->add_tab(std::move(tab_icon_graphic), tab_text);
+	VTab* tab = m_titlebar->menu_tab_bar()->add_tab(
+		std::move(tab_icon_graphic), tab_text);
 
 	_open_central_widget(central_widget);
+
+	return tab;
 }
 
 void VMainWindow::update()
