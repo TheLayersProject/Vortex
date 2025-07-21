@@ -65,7 +65,7 @@ void Vortex::VStylesWidget::init_style_scroller()
 		{
 			QLCheckBox* check_box = new QLCheckBox;
 
-			LStyleList active_styles = lController.active_styles();
+			LStyleList active_styles = lController.active_custom_styles();
 
 			auto it = std::find(active_styles.begin(), active_styles.end(), style);
 			if (it != active_styles.end())

@@ -20,11 +20,13 @@
 #include <Vortex/vthemedirectoriesdialog.h>
 
 #include <QFileDialog>
+#include <Layers/lstyle.h>
 #include <Layers/ltheme.h>
 #include <QLayers/qllabel.h>
 #include <Vortex/vapplication.h>
 
 using Layers::LString;
+using Layers::LStyle;
 using Layers::LTheme;
 using QLayers::QLButton;
 using QLayers::QLGraphic;
@@ -65,7 +67,7 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : QLDialog("Th
 			//return done(QDialog::Rejected);
 		});
 
-	apply_definition(lController.find_definition(path()));
+	apply_style(lController.find_style(path()));
 }
 
 void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
@@ -75,10 +77,10 @@ void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
 	directory_label->setFixedHeight(30);
 	directory_label->set_left_padding(3.0);
 
-	if (definition())
+	if (LStyle* s = LStylable::style())
 	{
-		directory_label->apply_definition(
-			definition()->find_item(directory_label->name()));
+		directory_label->apply_style(
+			s->find_item(directory_label->name()));
 	}
 
 	layout_directory_labels->addWidget(directory_label);

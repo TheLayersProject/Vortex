@@ -34,6 +34,7 @@
 #include "vsettingsmenu.h"
 
 using Layers::LString;
+using Layers::LStyle;
 using QLayers::QLGraphic;
 using Vortex::VMainWindowTitlebar;
 using Vortex::VMainWindow;
@@ -80,7 +81,7 @@ VMainWindow::VMainWindow(QWidget* parent) :
 	m_separator->set_object_name("Separator");
 	m_separator->setFixedHeight(3);
 
-	apply_definition(lController.find_definition(path()));
+	apply_style(lController.find_style(path()));
 }
 
 VTab* VMainWindow::open_central_widget(
@@ -275,11 +276,11 @@ void VMainWindow::init_titlebar_connections()
 
 void VMainWindow::_open_central_widget(QWidget* central_widget)
 {
-	if (LDefinable* central_themeable =
-		dynamic_cast<LDefinable*>(central_widget))
+	if (LStylable* central_themeable =
+		dynamic_cast<LStylable*>(central_widget))
 	{
-		if (definition())
-			central_themeable->apply_definition(definition()->find_item(
+		if (LStyle* s = LStylable::style())
+			central_themeable->apply_style(s->find_item(
 				central_widget->objectName().toStdString().c_str()));
 	}
 

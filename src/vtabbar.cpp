@@ -22,6 +22,9 @@
 #include <QEvent>
 #include <QResizeEvent>
 
+#include <Layers/lstyle.h>
+
+using Layers::LStyle;
 using QLayers::QLGraphic;
 using Vortex::VTab;
 using Vortex::VTabBar;
@@ -76,9 +79,9 @@ void VTabBar::_add_tab(VTab* tab)
 {
 	tab->set_object_name("Tabs");
 
-	if (definition())
-		tab->apply_definition(
-			definition()->find_item(tab->objectName().toStdString().c_str()));
+	if (LStyle* s = LStylable::style())
+		tab->apply_style(
+			s->find_item(tab->objectName().toStdString().c_str()));
 
 	m_tabs.append(tab);
 	m_tab_layout->addWidget(tab);

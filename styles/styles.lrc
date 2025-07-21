@@ -1,5 +1,5 @@
 {
-    "/definitions/vortex": [
+    "/styles/vortex": [
         "titlebarbutton.json",
         "vappearancewidget.json",
         "vmainwindow.json",

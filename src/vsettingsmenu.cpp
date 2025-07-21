@@ -63,12 +63,12 @@ void VSettingsMenu::add_settings_tab(std::unique_ptr<QLGraphic> icon, const QStr
 		connect(st, &VSettingsTab::clicked, [settings_tab]
 		{
 			settings_tab->select_states()->set_state("Unselected");
-			settings_tab->QLDefinable::update();
+			settings_tab->QLStylable::update();
 		});
 		connect(settings_tab, &VSettingsTab::clicked, [st]
 		{
 			st->select_states()->set_state("Unselected");
-			st->QLDefinable::update();
+			st->QLStylable::update();
 		});
 	}
 

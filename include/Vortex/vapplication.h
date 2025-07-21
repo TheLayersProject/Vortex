@@ -31,8 +31,6 @@
 #include <Layers/lattribute.h>
 #include <Layers/ltheme.h>
 
-#include <QLayers/qldefinable.h>
-
 #include "vortex_global.h"
 #include "vortex_export.h"
 

@@ -40,8 +40,6 @@ using Layers::LString;
 using Layers::LStyle;
 using Layers::LStyleList;
 using Layers::LTheme;
-using Layers::LDefinable;
-using QLayers::QLDefinable;
 using Vortex::VApplication;
 
 LTheme* Vortex::activeTheme()
@@ -87,11 +85,11 @@ void VApplication::apply_theme(LTheme* theme)
 
 bool VApplication::toggle_style(const Layers::LString& style_name)
 {
-	bool style_applied = lController.toggle_style(style_name);
+	bool style_applied = lController.toggle_custom_style(style_name);
 
 	QStringList active_style_IDs;
 
-	for (LStyle* style : lController.active_styles())
+	for (LStyle* style : lController.active_custom_styles())
 	{
 		active_style_IDs.push_back(style->object_name().c_str());
 	}
@@ -337,7 +335,7 @@ void VApplication::init_styles()
 			// Process each enabled style
 			qDebug() << "Active style:" << active_style_ID;
 
-			lController.toggle_style(active_style_ID.toStdString().c_str());
+			lController.toggle_custom_style(active_style_ID.toStdString().c_str());
 		}
 	}
 	else

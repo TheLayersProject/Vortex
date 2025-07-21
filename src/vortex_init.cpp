@@ -27,7 +27,7 @@
 
 namespace Layers {
     namespace Resources {
-        extern void initResources_definitions();
+        extern void initResources_styles();
     }
 }
 
@@ -39,7 +39,7 @@ void initialize_resources()
     Q_INIT_RESOURCE(images);
 
     // Initialize Layers resources
-    Layers::Resources::initResources_definitions();
+    Layers::Resources::initResources_styles();
 }
 
 VORTEX_NAMESPACE_BEGIN
@@ -48,8 +48,8 @@ Initializer::Initializer()
 {
     initialize_resources();
 
-    lController.include_internal("/definitions/vortex");
-    qDebug() << "Vortex: Loaded Definitions";
+    lController.include_internal("/styles/vortex");
+    qDebug() << "Vortex: Loaded Styles";
 }
 
 static Initializer vortex_initializer;

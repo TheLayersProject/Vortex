@@ -24,8 +24,8 @@
 
 using Layers::LAttributeMap;
 using Layers::LString;
+using Layers::LStyle;
 using Layers::LTheme;
-using Layers::LDefinition;
 using Layers::LVariant;
 using QLayers::QLLabel;
 using Vortex::VThemeButton;
