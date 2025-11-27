@@ -22,7 +22,6 @@
 
 #include <QVBoxLayout>
 
-#include <QLayers/qlwidget.h>
 #include "vtab.h"
 
 #include "vortex_global.h"
@@ -31,7 +30,7 @@
 VORTEX_NAMESPACE_BEGIN
 class VMainWindowTitlebar;
 
-class VORTEX_EXPORT VMainWindow : public QLayers::QLWidget
+class VORTEX_EXPORT VMainWindow : public QWidget
 {
 	Q_OBJECT
 
@@ -44,17 +43,19 @@ public:
 		QWidget* central_widget, std::unique_ptr<QLayers::QLGraphic> tab_icon_graphic,
 		const QString& tab_text);
 
-	virtual void update() override;
+	void update();
 
 protected:
+	bool event(QEvent* e) override;
+
 #ifdef _WIN32
 	virtual bool nativeEvent(
 		const QByteArray& eventType, void* message, qintptr* result) override;
 #endif
 
 private:
-	void init_attributes();
-	void init_layout();
+	//void init_attributes();
+	void init_layout(); 
 	void init_titlebar_connections();
 
 	void _open_central_widget(QWidget* central_widget);
@@ -65,7 +66,7 @@ private:
 
 	VMainWindowTitlebar* m_titlebar;
 
-	QLWidget* m_separator{ new QLWidget };
+	QWidget* m_separator{ new QWidget };
 
 	QList<QWidget*> m_central_widgets;
 };

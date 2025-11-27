@@ -27,6 +27,7 @@
 #include <QIcon>
 #include <QPainterPath>
 #include <Layers/lstring.h>
+#include <QLayers/boxstyle.h>
 #include <QLayers/qlcalculate.h>
 #include <Vortex/vapplication.h>
 
@@ -43,14 +44,17 @@ using Vortex::VTab;
 
 VMainWindow::VMainWindow(QWidget* parent) :
 	m_titlebar{ new VMainWindowTitlebar },
-	QLWidget(parent)
+	QWidget(parent)
 {
-	init_attributes();
+	//init_attributes();
 	init_layout();
 	init_titlebar_connections();
 	resize(1000, 700);
-	set_object_name("Main Window");
-	setAttribute(Qt::WA_TranslucentBackground);
+	setObjectName("Main Window");
+	//set_object_name("Main Window");
+	//setAttribute(Qt::WA_TranslucentBackground);
+	//setAutoFillBackground(true);
+	//setAttribute(Qt::WA_StyledBackground);
 	setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 
 	connect(m_titlebar->menu_tab_bar(), &VTabBar::index_changed,
@@ -78,10 +82,15 @@ VMainWindow::VMainWindow(QWidget* parent) :
 				vApp->quit();
 		});
 
-	m_separator->set_object_name("Separator");
+	//m_separator->set_object_name("Separator");
+	m_separator->setObjectName("Separator");
 	m_separator->setFixedHeight(3);
 
-	apply_style(lController.find_style(path()));
+	//QLayers::make_box(this);
+
+	QLayers::apply_layers_style_auto(this);
+
+	//apply_style(lController.find_style(path()));
 }
 
 VTab* VMainWindow::open_central_widget(
@@ -112,16 +121,41 @@ void VMainWindow::update()
 		m_main_layout->setContentsMargins(0, 0, 0, 0);
 	else
 	{
-		int border_thickness = m_border_thickness->as<double>();
+		LStyle* style = QLayers::get_widget_lstyle(this);
 
-		m_main_layout->setContentsMargins(
-			border_thickness + m_margins_left->as<double>(),
-			border_thickness + m_margins_top->as<double>(),
-			border_thickness + m_margins_right->as<double>(),
-			border_thickness + m_margins_bottom->as<double>());
+		if (style)
+		{
+			double border_thickness =
+				style->find_attribute("Border.Thickness")->as<double>();
+			double margin_left =
+				style->find_attribute("Margins.Left")->as<double>();
+			double margin_top =
+				style->find_attribute("Margins.Top")->as<double>();
+			double margin_right =	
+				style->find_attribute("Margins.Right")->as<double>();
+			double margin_bottom =
+				style->find_attribute("Margins.Bottom")->as<double>();
+
+			m_main_layout->setContentsMargins(
+				border_thickness + margin_left,
+				border_thickness + margin_top,
+				border_thickness + margin_right,
+				border_thickness + margin_bottom);
+		}
 	}
 
 	QWidget::update();
+}
+
+bool VMainWindow::event(QEvent* e) 
+{
+	if (e->type() == QEvent::WindowStateChange ||
+		e->type() == QLayers::StyleAppliedEvent::EventType)
+	{
+		update();
+	}
+
+	return QWidget::event(e);
 }
 
 #ifdef _WIN32
@@ -137,7 +171,8 @@ bool VMainWindow::nativeEvent(
 
 		*result = 0;
 		const LONG borderWidth =
-			border_thickness()->as<qreal>() * devicePixelRatio();
+			10.0 * devicePixelRatio();
+			//border_thickness()->as<qreal>() * devicePixelRatio();
 		RECT winrect;
 		GetWindowRect(reinterpret_cast<HWND>(winId()), &winrect);
 
@@ -216,23 +251,23 @@ bool VMainWindow::nativeEvent(
 }
 #endif
 
-void VMainWindow::init_attributes()
-{
-	m_border_thickness->set_value(15.0);
-	m_border_fill->set_value(std::vector<LString>({ "0:#3a3c42", "1:#42454d" }));
-	m_corner_radii_top_left->set_value(10.0);
-	m_corner_radii_top_right->set_value(10.0);
-	m_corner_radii_bottom_left->set_value(10.0);
-	m_corner_radii_bottom_right->set_value(10.0);
+// void VMainWindow::init_attributes()
+// {
+// 	m_border_thickness->set_value(15.0);
+// 	m_border_fill->set_value(std::vector<LString>({ "0:#3a3c42", "1:#42454d" }));
+// 	m_corner_radii_top_left->set_value(10.0);
+// 	m_corner_radii_top_right->set_value(10.0);
+// 	m_corner_radii_bottom_left->set_value(10.0);
+// 	m_corner_radii_bottom_right->set_value(10.0);
 
-	m_separator->fill()->set_value("#25272b");
-}
+// 	m_separator->fill()->set_value("#25272b");
+// }
 
 void VMainWindow::init_layout()
 {
-	int margin = border_thickness()->as<double>();
+	//int margin = border_thickness()->as<double>();
 
-	m_main_layout->setContentsMargins(margin, margin, margin, margin);
+	//m_main_layout->setContentsMargins(margin, margin, margin, margin);
 	m_main_layout->setSpacing(0);
 	m_main_layout->addWidget(m_titlebar);
 	m_main_layout->addWidget(m_separator);
@@ -276,16 +311,10 @@ void VMainWindow::init_titlebar_connections()
 
 void VMainWindow::_open_central_widget(QWidget* central_widget)
 {
-	if (LStylable* central_themeable =
-		dynamic_cast<LStylable*>(central_widget))
-	{
-		if (LStyle* s = LStylable::style())
-			central_themeable->apply_style(s->find_item(
-				central_widget->objectName().toStdString().c_str()));
-	}
-
 	m_central_widgets.append(central_widget);
 	m_main_layout->addWidget(central_widget);
+
+	QLayers::apply_layers_style_from_parent(central_widget);
 
 	set_active_central_widget(central_widget);
 }

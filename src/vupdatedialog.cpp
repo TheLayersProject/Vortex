@@ -40,19 +40,19 @@ VUpdateDialog::VUpdateDialog(
 {
 	setFixedSize(525, 300);
 	set_icon(std::make_unique<QLGraphic>(":/images/update_icon.svg"));
-	set_object_name("Update Dialog");
+	setObjectName("Update Dialog");
 
-	m_remind_me_later_button->set_object_name("Remind Me Later Button");
+	m_remind_me_later_button->setObjectName("Remind Me Later Button");
 	m_remind_me_later_button->set_padding(8, 6, 8, 6);
 	connect(m_remind_me_later_button, &QLButton::clicked,
 		[this] { done(QDialog::Rejected); });
 
-	m_update_button->set_object_name("Update Button");
+	m_update_button->setObjectName("Update Button");
 	m_update_button->set_padding(8, 6, 8, 6);
 	connect(m_update_button, &QLButton::clicked,
 		[this] { done(QDialog::Accepted); });
 
-	m_message_label->set_object_name("Message Label");
+	m_message_label->setObjectName("Message Label");
 	m_message_label->set_font_size(15);
 	m_message_label->setWordWrap(true);
 

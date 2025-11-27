@@ -25,21 +25,21 @@ using Vortex::VTabBar;
 using Vortex::VMainWindowTitlebar;
 
 VMainWindowTitlebar::VMainWindowTitlebar(QWidget* parent) :
-	QLWidget(parent)
+	QWidget(parent)
 {
 	setFixedHeight(40);
 
-	set_object_name("Titlebar");
+	setObjectName("Titlebar");
 
 	//m_menu_tab_bar->set_object_name("Tab Bar");
 
-	m_settings_button->set_object_name("Settings Button");
+	m_settings_button->setObjectName("Settings Button");
 
-	m_minimize_button->set_object_name("Minimize Button");
+	m_minimize_button->setObjectName("Minimize Button");
 
-	m_maximize_button->set_object_name("Maximize Button");
+	m_maximize_button->setObjectName("Maximize Button");
 
-	m_exit_button->set_object_name("Exit Button");
+	m_exit_button->setObjectName("Exit Button");
 
 	init_layout();
 }

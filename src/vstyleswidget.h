@@ -20,15 +20,15 @@
 #ifndef VSTYLESWIDGET_H
 #define VSTYLESWIDGET_H
 
+#include <QWidget>
 #include <QVBoxLayout>
 #include <QLayers/qlscrollarea.h>
-#include <QLayers/qlwidget.h>
 
 #include <Vortex/vortex_global.h>
 
 namespace Vortex {
 
-	class VStylesWidget : public QLayers::QLWidget
+	class VStylesWidget : public QWidget
 	{
 		Q_OBJECT
 
@@ -39,10 +39,10 @@ namespace Vortex {
 		void init_layout();
 		void init_style_scroller();
 
-		QLWidget* m_options_bar{ new QLWidget };
+		QWidget* m_options_bar{ new QWidget };
 
 		QLayers::QLScrollArea* m_style_scroller{ new QLayers::QLScrollArea };
-		QLWidget* m_style_scroller_widget{ new QLWidget };
+		QWidget* m_style_scroller_widget{ new QWidget };
 		QVBoxLayout* style_buttons_vbox{ new QVBoxLayout };
 	};
 }

@@ -25,15 +25,15 @@
 
 #include <Vortex/vortex_global.h>
 
+#include <QWidget>
 #include <QLayers/qlgraphic.h>
-#include <QLayers/qlwidget.h>
 
 namespace Vortex{
 
 	class VSettingsTab;
 	class VAppearanceWidget;
 
-	class VSettingsMenu : public QLayers::QLWidget
+	class VSettingsMenu : public QWidget
 	{
 		Q_OBJECT
 
@@ -55,7 +55,7 @@ namespace Vortex{
 
 		QList<VSettingsTab*> m_settings_tabs;
 
-		QLWidget* m_sidebar{ new QLWidget };
+		QWidget* m_sidebar{ new QWidget };
 
 		VAppearanceWidget* m_appearance_widget;
 	};

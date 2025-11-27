@@ -23,11 +23,11 @@
 #include "vortex_global.h"
 #include "vortex_export.h"
 
+#include <QWidget>
 #include <QLayers/qllabel.h>
-#include <QLayers/qlwidget.h>
 
 VORTEX_NAMESPACE_BEGIN
-class VORTEX_EXPORT VStyleButton : public QLayers::QLWidget
+class VORTEX_EXPORT VStyleButton : public QWidget
 {
 	Q_OBJECT
 

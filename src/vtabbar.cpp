@@ -23,16 +23,18 @@
 #include <QResizeEvent>
 
 #include <Layers/lstyle.h>
+#include <QLayers/boxstyle.h>
 
 using Layers::LStyle;
 using QLayers::QLGraphic;
 using Vortex::VTab;
 using Vortex::VTabBar;
 
-VTabBar::VTabBar(QWidget* parent) : QLWidget(parent)
+VTabBar::VTabBar(QWidget* parent) : QWidget(parent)
 {
 	init_layout();
-	set_object_name("Tab Bar");
+	setObjectName("Tab Bar");
+	//set_object_name("Tab Bar");
 }
 
 VTab* VTabBar::add_tab(std::unique_ptr<QLGraphic> icon, const QString& text)
@@ -77,14 +79,12 @@ QList<VTab*> VTabBar::tabs() const
 
 void VTabBar::_add_tab(VTab* tab)
 {
-	tab->set_object_name("Tabs");
-
-	if (LStyle* s = LStylable::style())
-		tab->apply_style(
-			s->find_item(tab->objectName().toStdString().c_str()));
+	tab->setObjectName("Tabs");
 
 	m_tabs.append(tab);
 	m_tab_layout->addWidget(tab);
+
+	QLayers::apply_layers_style_from_parent(tab);
 
 	connect(tab, &VTab::clicked, [this, tab]
 		{ set_current_index(m_tabs.indexOf(tab)); });

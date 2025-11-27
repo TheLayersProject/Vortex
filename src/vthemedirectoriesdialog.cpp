@@ -38,10 +38,10 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : QLDialog("Th
 	init_layout();
 	init_directory_list();
 	set_icon(std::make_unique<QLGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22)));
-	set_object_name("Theme Directories Dialog");
+	setObjectName("Theme Directories Dialog");
 	setFixedSize(620, 370);
 
-	m_new_directory_button->set_object_name("New Directory Button");
+	m_new_directory_button->setObjectName("New Directory Button");
 	m_new_directory_button->setFixedHeight(50);
 	m_new_directory_button->set_pointing_hand_cursor();
 	m_new_directory_button->layout()->insertStretch(0);
@@ -67,21 +67,22 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : QLDialog("Th
 			//return done(QDialog::Rejected);
 		});
 
-	apply_style(lController.find_style(path()));
+	// TODO: Apply style
+	//apply_style(lController.find_style(path()));
 }
 
 void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
 {
 	QLLabel* directory_label = new QLLabel(dir);
-	directory_label->set_object_name("Directory Label");
+	directory_label->setObjectName("Directory Label");
 	directory_label->setFixedHeight(30);
 	directory_label->set_left_padding(3.0);
 
-	if (LStyle* s = LStylable::style())
-	{
-		directory_label->apply_style(
-			s->find_item(directory_label->name()));
-	}
+	// if (LStyle* s = LStylable::style())
+	// {
+	// 	directory_label->apply_style(
+	// 		s->find_item(directory_label->name()));
+	// }
 
 	layout_directory_labels->addWidget(directory_label);
 }

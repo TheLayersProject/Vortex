@@ -31,18 +31,18 @@ using Layers::LStyleList;
 using QLayers::QLCheckBox;
 using Vortex::VStylesWidget;
 
-VStylesWidget::VStylesWidget(QWidget* parent) : QLWidget(parent)
+VStylesWidget::VStylesWidget(QWidget* parent) : QWidget(parent)
 {
 	init_layout();
 	init_style_scroller();
-	set_object_name("Styles Widget");
+	setObjectName("Styles Widget");
 
-	m_options_bar->set_object_name("Options Bar");
+	m_options_bar->setObjectName("Options Bar");
 	m_options_bar->setFixedHeight(50);
 
-	m_style_scroller->set_object_name("Style Scroller");
+	m_style_scroller->setObjectName("Style Scroller");
 
-	m_style_scroller_widget->set_object_name("Style Scroller Widget");
+	m_style_scroller_widget->setObjectName("Style Scroller Widget");
 }
 
 void VStylesWidget::init_layout()

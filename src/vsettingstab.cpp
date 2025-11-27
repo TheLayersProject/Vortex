@@ -21,6 +21,7 @@
 
 #include <QIntValidator>
 #include <QMouseEvent>
+#include <QLayers/boxstyle.h>
 #include <QLayers/qllabel.h>
 
 using QLayers::QLGraphic;
@@ -31,11 +32,11 @@ VSettingsTab::VSettingsTab(
 	std::unique_ptr<QLGraphic> icon, const QString& label_text, QWidget* parent) :
 	m_icon_label{ new QLayers::QLLabel(std::move(icon)) },
 	m_text_label { new QLayers::QLLabel(label_text) },
-	QLWidget(parent)
+	QWidget(parent)
 {
-	init_attributes();
+	//init_attributes();
 	init_layout();
-	add_state_pool(m_select_states);
+	QLayers::add_state_pool(this, m_select_states);
 
 	m_select_states->set_state("Unselected");
 
@@ -48,35 +49,35 @@ VSettingsTab::VSettingsTab(
 	setMouseTracking(true);
 	setFixedHeight(60);
 
-	set_object_name("Setting Tab");
+	setObjectName("Setting Tab");
 
 	m_icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
-	m_icon_label->set_object_name("Icon Label");
+	m_icon_label->setObjectName("Icon Label");
 
 	m_text_label->setAttribute(Qt::WA_TransparentForMouseEvents);
-	m_text_label->set_object_name("Text Label");
+	m_text_label->setObjectName("Text Label");
 	m_text_label->set_font_size(14);
 }
 
-void VSettingsTab::init_attributes()
-{
-	m_corner_radii_top_left->set_value(5.0);
-	m_corner_radii_bottom_left->set_value(5.0);
-	m_fill->set_value("#c0c0c0");
-	//Layers::lMake<LAttribute>(m_fill, "Selected", "#ffffff");
-	//m_fill->create_state("Selected", "#ffffff");
+// void VSettingsTab::init_attributes()
+// {
+// 	m_corner_radii_top_left->set_value(5.0);
+// 	m_corner_radii_bottom_left->set_value(5.0);
+// 	m_fill->set_value("#c0c0c0");
+// 	//Layers::lMake<LAttribute>(m_fill, "Selected", "#ffffff");
+// 	//m_fill->create_state("Selected", "#ffffff");
 
-	m_icon_label->graphic()->svg_renderer()->color()->set_value("#a0a0a4");
-	//Layers::lMake<LAttribute>(
-	//	m_icon_label->graphic()->svg_renderer()->color(),
-	//	"Selected", "#000000");
-	//m_icon_label->graphic()->svg_renderer()->color()->create_state(
-	//	"Selected", "#000000");
+// 	m_icon_label->graphic()->svg_renderer()->color()->set_value("#a0a0a4");
+// 	//Layers::lMake<LAttribute>(
+// 	//	m_icon_label->graphic()->svg_renderer()->color(),
+// 	//	"Selected", "#000000");
+// 	//m_icon_label->graphic()->svg_renderer()->color()->create_state(
+// 	//	"Selected", "#000000");
 
-	m_text_label->text_color()->set_value("#a0a0a4");
-	//Layers::lMake<LAttribute>(m_text_label->text_color(), "Selected", "#000000");
-	//m_text_label->text_color()->create_state("Selected", "#000000");
-}
+// 	m_text_label->text_color()->set_value("#a0a0a4");
+// 	//Layers::lMake<LAttribute>(m_text_label->text_color(), "Selected", "#000000");
+// 	//m_text_label->text_color()->create_state("Selected", "#000000");
+// }
 
 int VSettingsTab::recommended_minimum_width()
 {

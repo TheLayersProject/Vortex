@@ -22,15 +22,13 @@
 
 #include <QHBoxLayout>
 
-#include <QLayers/qlwidget.h>
-
 #include "vortex_global.h"
 #include "vortex_export.h"
 
 #include "vtab.h"
 
 VORTEX_NAMESPACE_BEGIN
-class VORTEX_EXPORT VTabBar : public QLayers::QLWidget
+class VORTEX_EXPORT VTabBar : public QWidget
 {
 	Q_OBJECT
 

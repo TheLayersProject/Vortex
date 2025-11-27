@@ -33,7 +33,7 @@
 
 namespace Vortex{
 
-	class VAppearanceWidget : public QLayers::QLWidget
+	class VAppearanceWidget : public QWidget
 	{
 		Q_OBJECT
 
@@ -45,7 +45,7 @@ namespace Vortex{
 
 		VTabBar* m_tab_bar{ new VTabBar };
 
-		QLWidget* m_tab_bar_divider{ new QLWidget };
+		QWidget* m_tab_bar_divider{ new QWidget };
 
 		QLayers::QLLabel* m_theme_label{ new QLayers::QLLabel("Theme") };
 

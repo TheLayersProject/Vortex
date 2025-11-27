@@ -29,8 +29,8 @@
 #include <QWidget>
 #include <Layers/lalgorithms.h>
 #include <Layers/lcontroller.h>
-#include <Layers/lpaths.h>
 #include <Layers/lstyle.h>
+#include <QLayers/boxstyle.h>
 #include <QLayers/qllogger.h>
 #include <Vortex/vdownloader.h>
 #include <Vortex/vgithubrepo.h>
@@ -139,6 +139,8 @@ void VApplication::init()
 	init_styles();
 	init_active_theme();
 
+	setStyle(new QLayers::BoxStyle);
+
 	m_initialized = true;
 }
 
@@ -190,46 +192,46 @@ QString VApplication::version()
 
 void VApplication::download_and_install_update()
 {
-	QUrl repo_releases_json_download_url(m_github_api_repos_url_base + "/" + m_github_repo->to_string() + "/releases");
+	// QUrl repo_releases_json_download_url(m_github_api_repos_url_base + "/" + m_github_repo->to_string() + "/releases");
 
-	QNetworkReply* repo_releases_json_download = m_downloader->download(repo_releases_json_download_url);
+	// QNetworkReply* repo_releases_json_download = m_downloader->download(repo_releases_json_download_url);
 
-	QEventLoop loop;
-	connect(repo_releases_json_download, &QNetworkReply::finished, &loop, &QEventLoop::quit);
-	loop.exec();
+	// QEventLoop loop;
+	// connect(repo_releases_json_download, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+	// loop.exec();
 
-	if (repo_releases_json_download->error() == QNetworkReply::NoError)
-	{
-		QJsonArray repo_releases_json_array = QJsonDocument::fromJson(repo_releases_json_download->readAll()).array();
+	// if (repo_releases_json_download->error() == QNetworkReply::NoError)
+	// {
+	// 	QJsonArray repo_releases_json_array = QJsonDocument::fromJson(repo_releases_json_download->readAll()).array();
 
-		QJsonArray release_assets_array = repo_releases_json_array.first().toObject()["assets"].toArray();
+	// 	QJsonArray release_assets_array = repo_releases_json_array.first().toObject()["assets"].toArray();
 
-		for (QJsonValueRef release_asset : release_assets_array)
-		{
-			QString release_asset_name = release_asset.toObject()["name"].toString();
+	// 	for (QJsonValueRef release_asset : release_assets_array)
+	// 	{
+	// 		QString release_asset_name = release_asset.toObject()["name"].toString();
 
-			if (release_asset_name.endsWith(".exe") || release_asset_name.endsWith(".msi"))
-			{
-				QDir temp_dir = Layers::local_app_data_path() / "Temp\\";
+	// 		if (release_asset_name.endsWith(".exe") || release_asset_name.endsWith(".msi"))
+	// 		{
+	// 			QDir temp_dir = Layers::local_app_data_path() / "Temp\\";
 
-				QUrl latest_version_download_url = QUrl(release_asset.toObject()["browser_download_url"].toString());
+	// 			QUrl latest_version_download_url = QUrl(release_asset.toObject()["browser_download_url"].toString());
 
-				if (!QFile::exists(latest_version_download_url.fileName()))
-				{
-					QNetworkReply* update_download = m_downloader->download(latest_version_download_url, temp_dir);
+	// 			if (!QFile::exists(latest_version_download_url.fileName()))
+	// 			{
+	// 				QNetworkReply* update_download = m_downloader->download(latest_version_download_url, temp_dir);
 
-					QEventLoop loop;
-					connect(update_download, SIGNAL(finished()), &loop, SLOT(quit()));
-					loop.exec();
-				}
+	// 				QEventLoop loop;
+	// 				connect(update_download, SIGNAL(finished()), &loop, SLOT(quit()));
+	// 				loop.exec();
+	// 			}
 
-				QStringList args = { "/SILENT" };
+	// 			QStringList args = { "/SILENT" };
 
-				QProcess update_process;
-				update_process.startDetached(temp_dir.filePath(latest_version_download_url.fileName()), args);
-			}
-		}
-	}
+	// 			QProcess update_process;
+	// 			update_process.startDetached(temp_dir.filePath(latest_version_download_url.fileName()), args);
+	// 		}
+	// 	}
+	// }
 }
 
 QString VApplication::name()

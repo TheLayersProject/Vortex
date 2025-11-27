@@ -21,7 +21,9 @@
 
 #include <QEvent>
 #include <QMouseEvent>
+
 #include <Layers/lstring.h>
+#include <QLayers/boxstyle.h>
 
 using Layers::LString;
 using QLayers::QLButton;
@@ -33,14 +35,14 @@ using Vortex::VTab;
 VTab::VTab(std::unique_ptr<QLGraphic> icon, const QString& text, QWidget* parent) :
 	m_icon_label{ new QLLabel(std::move(icon)) },
 	m_text_label{ new QLLabel(text) },
-	QLWidget(parent)
+	QWidget(parent)
 {
 	init();
 }
 
 VTab::VTab(const QString& text, QWidget* parent) :
 	m_text_label{ new QLLabel(text) },
-	QLWidget(parent)
+	QWidget(parent)
 {
 	init();
 }
@@ -60,7 +62,7 @@ void VTab::hide_close_button()
 
 		m_icon_label->setAlignment(Qt::AlignCenter);
 		m_icon_label->setMinimumWidth(42);
-		m_icon_label->set_object_name("Icon");
+		m_icon_label->setObjectName("Icon");
 	}
 	else
 		main_layout->setContentsMargins(10, 0, 10, 0);
@@ -85,7 +87,7 @@ void VTab::set_icon(std::unique_ptr<QLayers::QLGraphic> icon)
 
 	m_icon_label->setAlignment(Qt::AlignCenter);
 	m_icon_label->setMinimumWidth(42);
-	m_icon_label->set_object_name("Icon");
+	m_icon_label->setObjectName("Icon");
 }
 
 void VTab::set_text(const QString& text)
@@ -103,12 +105,18 @@ QLLabel* VTab::text_label() const
 	return m_text_label;
 }
 
-bool VTab::eventFilter(QObject* object, QEvent* event)
+bool VTab::event(QEvent* e)
 {
-	if (event->type() == QEvent::MouseButtonPress &&
+	if (e->type() == QLayers::StyleAppliedEvent::EventType)
+	{
+        update();
+
+        return true;
+    }
+	else if (e->type() == QEvent::MouseButtonPress &&
 		!m_close_button->underMouse())
 	{
-		QMouseEvent* mouse_event = static_cast<QMouseEvent*>(event);
+		QMouseEvent* mouse_event = static_cast<QMouseEvent*>(e);
 
 		if (mouse_event->button() & Qt::LeftButton)
 		{
@@ -116,17 +124,16 @@ bool VTab::eventFilter(QObject* object, QEvent* event)
 		}
 	}
 
-	QLWidget::eventFilter(object, event);
-
-	return false;
+	return QWidget::event(e);
 }
 
 void VTab::init()
 {
-	add_state_pool(m_status_states);
-	init_attributes();
+	//add_state_pool(m_status_states);
+	QLayers::add_state_pool(this, m_status_states);
+	//init_attributes();
 	init_layout();
-	installEventFilter(this);
+	//installEventFilter(this);
 
 	m_status_states->set_state("Inactive");
 
@@ -137,7 +144,7 @@ void VTab::init()
 		m_icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
 		m_icon_label->setAlignment(Qt::AlignCenter);
 		m_icon_label->setMinimumWidth(42);
-		m_icon_label->set_object_name("Icon");
+		m_icon_label->setObjectName("Icon");
 	}
 	else
 	{
@@ -145,34 +152,35 @@ void VTab::init()
 	}
 
 	m_text_label->setAttribute(Qt::WA_TransparentForMouseEvents);
-	m_text_label->set_object_name("Text Label");
+	m_text_label->setObjectName("Text Label");
 	m_text_label->set_font_size(12);
 
-	m_close_button->set_object_name("Close Button");
+	m_close_button->setObjectName("Close Button");
 
 	connect(m_close_button, &QLButton::clicked,
 		[this] { emit closed(); });
 }
 
-void VTab::init_attributes()
-{
-	m_fill->set_value("#36393f");
-	//Layers::lMake<LAttribute>(m_fill, "Active", "#25272b");
-	//m_fill->create_state("Active", LString("#25272b"));
+// void VTab::init_attributes()
+// {
+// 	//m_fill->set_value("#36393f");
 
-	corner_radii_top_left()->set_value(5.0);
-	corner_radii_top_right()->set_value(5.0);
+// 	//Layers::lMake<LAttribute>(m_fill, "Active", "#25272b");
+// 	//m_fill->create_state("Active", LString("#25272b"));
 
-	m_text_label->text_color()->set_value("#e3e3e3");
+// 	//corner_radii_top_left()->set_value(5.0);
+// 	//corner_radii_top_right()->set_value(5.0);
 
-	if (m_icon_label)
-		if (QLayers::QLSvgRenderer* renderer = m_icon_label->graphic()->svg_renderer())
-			renderer->color()->set_value("#e3e3e3");
+// 	m_text_label->text_color()->set_value("#e3e3e3");
 
-	m_close_button->
-		graphic_label()->
-			graphic()->svg_renderer()->color()->set_value("#5f5f5f");
-}
+// 	if (m_icon_label)
+// 		if (QLayers::QLSvgRenderer* renderer = m_icon_label->graphic()->svg_renderer())
+// 			renderer->color()->set_value("#e3e3e3");
+
+// 	m_close_button->
+// 		graphic_label()->
+// 			graphic()->svg_renderer()->color()->set_value("#5f5f5f");
+// }
 
 void VTab::init_layout()
 {

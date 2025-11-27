@@ -20,6 +20,7 @@
 #include "vthemewidget.h"
 
 #include <QGraphicsOpacityEffect>
+#include <QLayers/boxstyle.h>
 #include <Vortex/vapplication.h>
 #include <Vortex/vthemebutton.h>
 #include <Vortex/vthemedirectoriesdialog.h>
@@ -29,20 +30,20 @@ using QLayers::QLButton;
 using Vortex::VThemeWidget;
 using Vortex::VThemeDirectoriesDialog;
 
-VThemeWidget::VThemeWidget(QWidget* parent) : QLWidget(parent)
+VThemeWidget::VThemeWidget(QWidget* parent) : QWidget(parent)
 {
 	init_layout();
 	init_theme_scroller();
-	set_object_name("Theme Widget");
+	setObjectName("Theme Widget");
 	update_active_theme_displayer();
 
-	m_options_bar->set_object_name("Options Bar");
+	m_options_bar->setObjectName("Options Bar");
 	m_options_bar->setFixedHeight(50);
 
-	m_active_theme_displayer->set_object_name("Active Theme Displayer");
+	m_active_theme_displayer->setObjectName("Active Theme Displayer");
 	m_active_theme_displayer->setFixedSize(300, 40);
 
-	m_theme_directories_button->set_object_name("Theme Directories Button");
+	m_theme_directories_button->setObjectName("Theme Directories Button");
 	m_theme_directories_button->setFixedSize(40, 40);
 	m_theme_directories_button->set_pointing_hand_cursor();
 	m_theme_directories_button->layout()->setContentsMargins(0, 0, 0, 0);
@@ -60,16 +61,18 @@ VThemeWidget::VThemeWidget(QWidget* parent) : QLWidget(parent)
 			}
 		});
 
-	m_theme_scroller->set_object_name("Theme Scroller");
+	m_theme_scroller->setObjectName("Theme Scroller");
+	//m_theme_scroller->viewport()->setAutoFillBackground(false);
+	//m_theme_scroller->widget()->setAutoFillBackground(false);
 
-	m_theme_label->set_object_name("Theme Label");
+	m_theme_label->setObjectName("Theme Label");
 	m_theme_label->set_bold();
 
 	QGraphicsOpacityEffect* publisher_opacity = new QGraphicsOpacityEffect;
 	publisher_opacity->setOpacity(0.6);
 
 	m_publisher_label->setGraphicsEffect(publisher_opacity);
-	m_publisher_label->set_object_name("Publisher Label");
+	m_publisher_label->setObjectName("Publisher Label");
 	m_publisher_label->set_font_size_f(10.5);
 
 	lController.on_theme_added(
@@ -123,11 +126,16 @@ void VThemeWidget::add_theme_button(LTheme* theme)
 	VThemeButton* theme_button = new VThemeButton(theme);
 	theme_buttons_vbox->insertWidget(theme_buttons_vbox->count() - 1, theme_button);
 
+	theme_button->setStyle(qApp->style());
+
+	qDebug() << "Theme Button Style Type:" << theme_button->style()->metaObject()->className();
+
 	connect(theme_button, &VThemeButton::clicked,
 		[this, theme]
 		{
 			vApp->apply_theme(theme);
 
+			QLayers::update_all_styled_widgets();
 			update_active_theme_displayer();
 		});
 }

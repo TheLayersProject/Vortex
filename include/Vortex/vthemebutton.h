@@ -26,10 +26,10 @@
 #include <Layers/ltheme.h>
 
 #include <QLayers/qllabel.h>
-#include <QLayers/qlwidget.h>
+//#include <QLayers/qlwidget.h>
 
 VORTEX_NAMESPACE_BEGIN
-class VORTEX_EXPORT VThemeButton : public QLayers::QLWidget
+class VORTEX_EXPORT VThemeButton : public QWidget
 {
 	Q_OBJECT
 
@@ -41,6 +41,7 @@ public:
 
 protected:
 	bool eventFilter(QObject* object, QEvent* event) override;
+	//void paintEvent(QPaintEvent* event) override;
 
 private:
 	void init_layout();

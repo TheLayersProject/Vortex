@@ -20,6 +20,7 @@
 #include "vsettingsmenu.h"
 
 #include <QMouseEvent>
+#include <QLayers/boxstyle.h>
 
 #include "vsettingstab.h"
 #include "vappearancewidget.h"
@@ -30,11 +31,11 @@ using Vortex::VAppearanceWidget;
 
 VSettingsMenu::VSettingsMenu(QWidget* parent) :
 	m_appearance_widget{ new VAppearanceWidget },
-	QLWidget(parent)
+	QWidget(parent)
 {
 	init_layout();
 	setMouseTracking(true);
-	set_object_name("Settings Menu");
+	setObjectName("Settings Menu");
 
 	//m_themes_settings_panel->hide();
 	m_appearance_widget->setMouseTracking(true);
@@ -43,15 +44,16 @@ VSettingsMenu::VSettingsMenu(QWidget* parent) :
 	add_settings_tab(
 		std::make_unique<QLGraphic>(":/images/themes_icon.svg", QSize(25, 25)),
 		"Appearance");
-	m_settings_tabs.last()->set_object_name("Themes Settings Tab"); // TODO: Change name to "Appearance Settings Tab" here and in definition
+	m_settings_tabs.last()->setObjectName("Themes Settings Tab"); // TODO: Change name to "Appearance Settings Tab" here and in definition
 	//connect(m_settings_tabs.last(), &VSettingsTab::clicked, [this] { m_app_preferences_settings_panel->hide(); m_themes_settings_panel->show(); });
 
 	m_settings_tabs.first()->select_states()->set_state("Selected");
 
 	m_sidebar->setFixedWidth(recommended_minimum_tab_width());
 	m_sidebar->setMouseTracking(true);
-	m_sidebar->set_object_name("Sidebar");
-	m_sidebar->fill()->set_value("#c0c0c0");
+	m_sidebar->setObjectName("Sidebar");
+	//m_sidebar->setObjectName("Sidebar");
+	//m_sidebar->fill()->set_value("#c0c0c0");
 }
 
 void VSettingsMenu::add_settings_tab(std::unique_ptr<QLGraphic> icon, const QString& label_text)
@@ -63,12 +65,12 @@ void VSettingsMenu::add_settings_tab(std::unique_ptr<QLGraphic> icon, const QStr
 		connect(st, &VSettingsTab::clicked, [settings_tab]
 		{
 			settings_tab->select_states()->set_state("Unselected");
-			settings_tab->QLStylable::update();
+			settings_tab->update();
 		});
 		connect(settings_tab, &VSettingsTab::clicked, [st]
 		{
 			st->select_states()->set_state("Unselected");
-			st->QLStylable::update();
+			st->update();
 		});
 	}
 

@@ -24,13 +24,14 @@
 
 #include <Vortex/vortex_global.h>
 
+#include <QWidget>
 #include <QLayers/qllabel.h>
-#include <QLayers/qlwidget.h>
+#include <QLayers/qlstatepool.h>
 
 namespace Vortex{
 	class VThemesWidget;
 
-	class VSettingsTab : public QLayers::QLWidget
+	class VSettingsTab : public QWidget
 	{
 		Q_OBJECT
 
@@ -51,7 +52,7 @@ namespace Vortex{
 	protected:
 		bool eventFilter(QObject* object, QEvent* event) override;
 
-		void init_attributes();
+		//void init_attributes();
 
 		//void resizeEvent(QResizeEvent* event);
 

@@ -23,7 +23,7 @@
 #include <Vortex/vtabbar.h>
 
 namespace Vortex{
-	class VMainWindowTitlebar : public QLayers::QLWidget
+	class VMainWindowTitlebar : public QWidget
 	{
 		Q_OBJECT
 

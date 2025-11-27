@@ -28,10 +28,10 @@ using QLayers::QLButton;
 //using Vortex::VThemeComboBox;
 using Vortex::VAppearanceWidget;
 
-VAppearanceWidget::VAppearanceWidget(QWidget* parent) : QLWidget(parent)
+VAppearanceWidget::VAppearanceWidget(QWidget* parent) : QWidget(parent)
 {
 	init_layout();
-	set_object_name("Appearance Widget");
+	setObjectName("Appearance Widget");
 
 	m_tab_bar->add_tab("Theme");
 	m_tab_bar->add_tab("Styles");
@@ -56,15 +56,15 @@ VAppearanceWidget::VAppearanceWidget(QWidget* parent) : QLWidget(parent)
 			}
 		});
 
-	m_tab_bar_divider->set_object_name("Dividers");
+	m_tab_bar_divider->setObjectName("Dividers");
 	m_tab_bar_divider->setFixedHeight(3);
 
-	m_theme_label->set_object_name("Theme Label");
+	m_theme_label->setObjectName("Theme Label");
 	m_theme_label->set_font_size(15);
 
 	m_styles_widget->hide();
 
-	//m_theme_combobox->set_object_name("Theme Combobox");
+	//m_theme_combobox->setObjectName("Theme Combobox");
 
 	//for (auto& _theme : lController.themes())
 	//	m_theme_combobox->add_theme(_theme.second);

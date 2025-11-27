@@ -28,7 +28,7 @@
 #include <QLayers/qlscrollarea.h>
 
 namespace Vortex {
-	class VThemeWidget : public QLayers::QLWidget
+	class VThemeWidget : public QWidget
 	{
 		Q_OBJECT
 
@@ -42,9 +42,9 @@ namespace Vortex {
 
 		void update_active_theme_displayer();
 
-		QLWidget* m_options_bar{ new QLWidget };
+		QWidget* m_options_bar{ new QWidget };
 
-		QLWidget* m_active_theme_displayer{ new QLWidget };
+		QWidget* m_active_theme_displayer{ new QWidget };
 
 		QLayers::QLLabel* m_theme_label{ new QLayers::QLLabel("Theme") };
 		QLayers::QLLabel* m_publisher_label{ new QLayers::QLLabel("Publisher") };

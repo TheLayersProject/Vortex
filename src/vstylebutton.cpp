@@ -34,21 +34,21 @@ using Vortex::VStyleButton;
 VStyleButton::VStyleButton(LStyle* style, QWidget* parent) :
 	m_name_label{ new QLLabel(style->object_name().c_str()) },
 	m_publisher_label{ new QLLabel(style->publisher().c_str()) },
-	QLWidget(parent)
+	QWidget(parent)
 {
 	init_layout();
 	//init_style(theme);
 	installEventFilter(this);
 	setFixedHeight(60);
-	set_object_name("Style Button");
-	set_corner_radii(5.0);
-	border_thickness()->set_value(2.0);
+	setObjectName("Style Button");
+	//set_corner_radii(5.0);
+	//border_thickness()->set_value(2.0);
 
 	m_name_label->set_bold();
-	m_name_label->set_object_name("Name Label");
+	m_name_label->setObjectName("Name Label");
 
 	m_publisher_label->set_font_size_f(10.5);
-	m_publisher_label->set_object_name("Publisher Label");
+	m_publisher_label->setObjectName("Publisher Label");
 }
 
 bool VStyleButton::eventFilter(QObject* object, QEvent* event)

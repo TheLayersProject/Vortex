@@ -28,7 +28,7 @@
 #include <QLayers/qlstatepool.h>
 
 VORTEX_NAMESPACE_BEGIN
-class VORTEX_EXPORT VTab : public QLayers::QLWidget
+class VORTEX_EXPORT VTab : public QWidget
 {
 	Q_OBJECT
 
@@ -58,11 +58,11 @@ public:
 	QLayers::QLLabel* text_label() const;
 
 protected:
-	bool eventFilter(QObject* object, QEvent* event) override;
+	bool event(QEvent* e) override;
 
 private:
 	void init();
-	void init_attributes();
+	//void init_attributes();
 	void init_layout();
 
 	QHBoxLayout* main_layout = new QHBoxLayout;
