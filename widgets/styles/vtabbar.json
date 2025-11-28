@@ -1,0 +1,57 @@
+{
+    "Tab Bar": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Corner Radii.Top Left": 3,
+            "Corner Radii.Top Right": 3
+        },
+        "children": {
+            "Tabs": {
+                "_include": "vbox.json::Box",
+                "attributes": {
+                    "Corner Radii.Top Left": 3,
+                    "Corner Radii.Top Right": 3,
+                    "Fill": {
+                        "states": {
+                            "Active": "L:Theme/Tertiary"
+                        }
+                    }
+                },
+                "children": {
+                    "Close Button": {
+                        "_include": "vbox.json::Box",
+                        "attributes": {
+                            "Fill": "#00ffffff"
+                        },
+                        "children": {
+                            "Graphic": {
+                                "children": {
+                                    "Svg": {
+                                        "attributes": {
+                                            "Color": {
+                                                "states": {
+                                                    "Selected": "#e95454"
+                                                },
+                                                "value": "#5f5f5f"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Icon": {
+                        "children": {
+                            "Svg": {
+                                "attributes": {
+                                    "Color": "L:Theme/Foreground"
+                                }
+                            }
+                        }
+                    },
+                    "Text Label": "vlabel.json::Label"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "Main Window/Settings Menu/Appearance Widget": {
+        "_include": "vbox.json::Box",
+        "children": {
+            "Dividers": {
+                "_include": "vbox.json::Box",
+                "attributes": {
+                    "Fill": "L:Theme/Tertiary"
+                }
+            },
+            "Styles Widget": {
+                "_include": "vbox.json::Box",
+                "children": {
+                    "Options Bar": {
+                        "_include": "vbox.json::Box",
+                        "attributes": {
+                            "Fill": "L:Theme/Tertiary"
+                        }
+                    },
+                    "Style Scroller": {
+                        "children": {
+                            "Style Scroller Widget": {
+                                "_include": "vbox.json::Box",
+                                "children": {
+                                    "Check Box": "vcheckbox.json::Check Box",
+                                    "Style Button": {
+                                        "_include": "vbox.json::Box",
+                                        "attributes": {
+                                            "Border.Fill": "L:Theme/Tertiary",
+                                            "Border.Thickness": 2,
+                                            "Corner Radii.Bottom Left": 5,
+                                            "Corner Radii.Bottom Right": 5,
+                                            "Corner Radii.Top Left": 5,
+                                            "Corner Radii.Top Right": 5
+                                        },
+                                        "children": {
+                                            "Name Label": "vlabel.json::Label",
+                                            "Publisher Label": "vlabel.json::Label"
+                                        }
+                                    }
+                                }
+                            },
+                            "Vertical ScrollBar": "vscrollbar.json::Scroll Bar"
+                        }
+                    }
+                }
+            },
+            "Tab Bar": "Vortex/vtabbar.json::Tab Bar",
+            "Theme Widget": {
+                "_include": "vbox.json::Box",
+                "children": {
+                    "Options Bar": {
+                        "_include": "vbox.json::Box",
+                        "attributes": {
+                            "Fill": "L:Theme/Tertiary"
+                        },
+                        "children": {
+                            "Active Theme Displayer": {
+                                "_include": "vbox.json::Box",
+                                "attributes": {
+                                    "Corner Radii.Bottom Left": 3,
+                                    "Corner Radii.Bottom Right": 3,
+                                    "Corner Radii.Top Left": 3,
+                                    "Corner Radii.Top Right": 3
+                                },
+                                "children": {
+                                    "Theme Label": "vlabel.json::Label",
+                                    "Publisher Label": "vlabel.json::Label"
+                                }
+                            },
+                            "Theme Directories Button": {
+                                "_include": "vbox.json::Box",
+                                "attributes": {
+                                    "Corner Radii.Bottom Left": 3,
+                                    "Corner Radii.Bottom Right": 3,
+                                    "Corner Radii.Top Left": 3,
+                                    "Corner Radii.Top Right": 3
+                                }
+                            }
+                        }
+                    },
+                    "Theme Scroller": {
+                        "children": {
+                            "Vertical ScrollBar": "vscrollbar.json::Scroll Bar"
+                        }
+                    }
+                }
+            },
+            "Theme Combobox": {
+                "attributes": {
+                    "Border.Fill": "#000000",
+                    "Border.Thickness": 0,
+                    "Corner Radius": 5,
+                    "Fill": "L:Theme/Tertiary",
+                    "Text Color": "L:Theme/Foreground"
+                },
+                "children": {
+                    "Items": {
+                        "attributes": {
+                            "Corner Radius": 5,
+                            "Fill": {
+                                "states": {
+                                    "Selected": "#34486C"
+                                },
+                                "value": "#13171F"
+                            },
+                            "Text Color": {
+                                "link_relative": "L:../Text Color"
+                            }
+                        }
+                    }
+                }
+            },
+            "Theme Label": "vlabel.json::Label"
+        }
+    }
+}

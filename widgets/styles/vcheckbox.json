@@ -1,0 +1,39 @@
+{
+    "Check Box": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Border.Fill": "L:Theme/Tertiary",
+            "Border.Thickness": {
+                "states": {
+                    "Checked": 0
+                },
+                "value": 2
+            },
+            "Corner Radii.Bottom Left": 3,
+            "Corner Radii.Bottom Right": 3,
+            "Corner Radii.Top Left": 3,
+            "Corner Radii.Top Right": 3,
+            "Fill": {
+                "states": {
+                    "Checked": "L:Theme/Foreground"
+                },
+                "value": "L:Theme/Primary"
+            },
+            "Margins.Bottom": 8,
+            "Margins.Left": 8,
+            "Margins.Right": 8,
+            "Margins.Top": 8
+        },
+        "children": {
+            "Check Label": {
+                "children": {
+                    "Svg": {
+                        "attributes": {
+                            "Color": "L:Theme/Tertiary"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

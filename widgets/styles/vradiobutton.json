@@ -1,0 +1,21 @@
+{
+    "Radio Button": {
+        "attributes": {
+            "Active Dot Fill": "L:Theme/Tertiary",
+            "Border.Fill": "L:Fill.Active",
+            "Border.Thickness": {
+                "states": {
+                    "Active": 0
+                },
+                "value": 3
+            },
+            "Fill": {
+                "link": "L:Theme/Primary",
+                "link_relative": "L:../Fill",
+                "states": {
+                    "Active": "L:Theme/Foreground"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "Box": {
+    "attributes": {
+      "Border.Fill": "#000000",
+      "Border.Thickness": 0,
+      "Corner Radii.Bottom Left": 0,
+      "Corner Radii.Bottom Right": 0,
+      "Corner Radii.Top Left": 0,
+      "Corner Radii.Top Right": 0,
+      "Fill": "L:Theme/Primary",
+      "Margins.Bottom": 0,
+      "Margins.Left": 0,
+      "Margins.Right": 0,
+      "Margins.Top": 0
+    }
+  }
+}

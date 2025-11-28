@@ -1,0 +1,16 @@
+{
+    "Label": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Fill": "#00000000",
+            "Text Color": "L:Theme/Foreground"
+        },
+        "children": {
+            "Svg": {
+                "attributes": {
+                    "Color": "L:Theme/Foreground"
+                }
+            }
+        }
+    }
+}

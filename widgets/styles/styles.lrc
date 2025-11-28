@@ -1,0 +1,20 @@
+{
+    "/styles/vortex": [
+        "titlebarbutton.json",
+        "vappearancewidget.json",
+        "vbox.json",
+        "vbutton.json",
+        "vcheckbox.json",
+        "vdialog.json",
+        "vlabel.json",
+        "vlineeditor.json",
+        "vmainwindow.json",
+        "vplaintexteditor.json",
+        "vradiobutton.json",
+        "vscrollbar.json",
+        "vsettingsmenu.json",
+        "vslider.json",
+        "vtabbar.json",
+        "vthemedirectoriesdialog.json"
+    ]
+}

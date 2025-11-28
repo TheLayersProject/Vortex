@@ -1,0 +1,22 @@
+{
+    "Titlebar Button": {
+        "_include": "vbox.json::Box",
+        "children": {
+            "Graphic": {
+                "_include": "vlabel.json::Label",
+                "children": {
+                    "Svg": {
+                        "attributes": {
+                            "Color": {
+                                "states": {
+                                    "Selected": "L:Theme/Foreground"
+                                },
+                                "value": "#6a6a6a"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

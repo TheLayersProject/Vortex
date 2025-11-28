@@ -1,0 +1,13 @@
+{
+    "Plain Text Editor": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Corner Radii.Bottom Left": 3,
+            "Corner Radii.Bottom Right": 3,
+            "Corner Radii.Top Left": 3,
+            "Corner Radii.Top Right": 3,
+            "Fill": "L:Theme/Secondary",
+            "Text Color": "L:Theme/Foreground"
+        }
+    }
+}

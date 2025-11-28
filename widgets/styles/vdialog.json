@@ -1,0 +1,55 @@
+{
+    "Dialog": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Border.Fill": "L:Theme/Gradient",
+            "Border.Thickness": 3,
+            "Corner Radii.Bottom Left": 5,
+            "Corner Radii.Bottom Right": 5,
+            "Corner Radii.Top Left": 5,
+            "Corner Radii.Top Right": 5
+        },
+        "children": {
+            "Titlebar": {
+                "_include": "vbox.json::Box",
+                "attributes": {
+                    "Corner Radii.Top Left": 2,
+                    "Corner Radii.Top Right": 2,
+                    "Fill": "L:Theme/Tertiary"
+                },
+                "children": {
+                    "Exit Button": {
+                        "_include": "vbox.json::Box",
+                        "children": {
+                            "Graphic": {
+                                "_include": "vlabel.json::Label",
+                                "children": {
+                                    "Svg": {
+                                        "attributes": {
+                                            "Color": {
+                                                "overrides": {
+                                                    "Selected": "#e33036"
+                                                },
+                                                "value": "#6a6a6a"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Icon Label": {
+                        "children": {
+                            "Svg": {
+                                "attributes": {
+                                    "Color": "L:Theme/Foreground"
+                                }
+                            }
+                        }
+                    },
+                    "Title Label": "vlabel.json::Label"
+                }
+            }
+        }
+    }
+}

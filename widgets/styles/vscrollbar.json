@@ -1,0 +1,16 @@
+{
+    "Scroll Bar": {
+        "attributes": {
+            "Background Color": "L:Theme/Secondary",
+            "Corner Radii.Bottom Left": 0,
+            "Corner Radii.Bottom Right": 10,
+            "Corner Radii.Top Left": 0,
+            "Corner Radii.Top Right": 0,
+            "Handle Color": "L:Theme/Tertiary",
+            "Handle Corner Radii.Bottom Left": 5,
+            "Handle Corner Radii.Bottom Right": 5,
+            "Handle Corner Radii.Top Left": 5,
+            "Handle Corner Radii.Top Right": 5
+        }
+    }
+}

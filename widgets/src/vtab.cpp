@@ -1,0 +1,193 @@
+/*
+ * Copyright (C) 2025 Huntr Software LLC
+ *
+ * This file is part of Vortex.
+ *
+ * Vortex is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Vortex is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#include <VortexWidgets/vtab.h>
+
+#include <QEvent>
+#include <QMouseEvent>
+
+#include <Layers/lstring.h>
+#include <VortexCore/vboxstyle.h>
+
+using Layers::LString;
+using Vortex::VButton;
+using Vortex::VGraphic;
+using Vortex::VLabel;
+using Vortex::VStatePool;
+using Vortex::VTab;
+
+VTab::VTab(std::unique_ptr<VGraphic> icon, const QString& text, QWidget* parent) :
+	m_icon_label{ new VLabel(std::move(icon)) },
+	m_text_label{ new VLabel(text) },
+	QWidget(parent)
+{
+	init();
+}
+
+VTab::VTab(const QString& text, QWidget* parent) :
+	m_text_label{ new VLabel(text) },
+	QWidget(parent)
+{
+	init();
+}
+
+VButton* VTab::close_button() const
+{
+	return m_close_button;
+}
+
+void VTab::hide_close_button()
+{
+	m_close_button->hide();
+
+	if (m_icon_label)
+	{
+		main_layout->setContentsMargins(2, 0, 4, 0);
+
+		m_icon_label->setAlignment(Qt::AlignCenter);
+		m_icon_label->setMinimumWidth(42);
+		m_icon_label->setObjectName("Icon");
+	}
+	else
+		main_layout->setContentsMargins(10, 0, 10, 0);
+}
+
+VLabel* VTab::icon_label() const
+{
+	return m_icon_label;
+}
+
+void VTab::set_icon(std::unique_ptr<Vortex::VGraphic> icon)
+{
+	if (m_icon_label)
+	{
+		m_icon_label->set_graphic(std::move(icon));
+	}
+	else
+	{
+		m_icon_label = new VLabel(std::move(icon));
+		main_layout->insertWidget(0, m_icon_label);
+	}
+
+	m_icon_label->setAlignment(Qt::AlignCenter);
+	m_icon_label->setMinimumWidth(42);
+	m_icon_label->setObjectName("Icon");
+}
+
+void VTab::set_text(const QString& text)
+{
+	m_text_label->setText(text);
+}
+
+VStatePool* VTab::status_states() const
+{
+	return m_status_states;
+}
+
+VLabel* VTab::text_label() const
+{
+	return m_text_label;
+}
+
+bool VTab::event(QEvent* e)
+{
+	if (e->type() == Vortex::VStyleAppliedEvent::EventType)
+	{
+        update();
+
+        return true;
+    }
+	else if (e->type() == QEvent::MouseButtonPress &&
+		!m_close_button->underMouse())
+	{
+		QMouseEvent* mouse_event = static_cast<QMouseEvent*>(e);
+
+		if (mouse_event->button() & Qt::LeftButton)
+		{
+			emit clicked();
+		}
+	}
+
+	return QWidget::event(e);
+}
+
+void VTab::init()
+{
+	//add_state_pool(m_status_states);
+	Vortex::add_state_pool(this, m_status_states);
+	//init_attributes();
+	init_layout();
+	//installEventFilter(this);
+
+	m_status_states->set_state("Inactive");
+
+	if (m_icon_label)
+	{
+		main_layout->setContentsMargins(2, 0, 4, 0);
+
+		m_icon_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+		m_icon_label->setAlignment(Qt::AlignCenter);
+		m_icon_label->setMinimumWidth(42);
+		m_icon_label->setObjectName("Icon");
+	}
+	else
+	{
+		main_layout->setContentsMargins(10, 0, 4, 0);
+	}
+
+	m_text_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+	m_text_label->setObjectName("Text Label");
+	m_text_label->set_font_size(12);
+
+	m_close_button->setObjectName("Close Button");
+
+	connect(m_close_button, &VButton::clicked,
+		[this] { emit closed(); });
+}
+
+// void VTab::init_attributes()
+// {
+// 	//m_fill->set_value("#36393f");
+
+// 	//Layers::lMake<LAttribute>(m_fill, "Active", "#25272b");
+// 	//m_fill->create_state("Active", LString("#25272b"));
+
+// 	//corner_radii_top_left()->set_value(5.0);
+// 	//corner_radii_top_right()->set_value(5.0);
+
+// 	m_text_label->text_color()->set_value("#e3e3e3");
+
+// 	if (m_icon_label)
+// 		if (Vortex::VSvgRenderer* renderer = m_icon_label->graphic()->svg_renderer())
+// 			renderer->color()->set_value("#e3e3e3");
+
+// 	m_close_button->
+// 		graphic_label()->
+// 			graphic()->svg_renderer()->color()->set_value("#5f5f5f");
+// }
+
+void VTab::init_layout()
+{
+	main_layout->setSpacing(0);
+	main_layout->addWidget(m_icon_label);
+	main_layout->addWidget(m_text_label);
+	main_layout->addWidget(m_close_button);
+
+	setLayout(main_layout);
+}

@@ -1,0 +1,52 @@
+{
+    "Main Window": {
+        "_include": "vbox.json::Box",
+        "attributes": {
+            "Border.Fill": "L:Theme/Gradient",
+            "Border.Thickness": 8,
+            "Corner Radii.Bottom Left": 12,
+            "Corner Radii.Bottom Right": 12,
+            "Corner Radii.Top Left": 12,
+            "Corner Radii.Top Right": 12
+        },
+        "children": {
+            "Separator": {
+                "_include": "vbox.json::Box",
+                "attributes": {
+                    "Fill": "L:Theme/Tertiary"
+                }
+            },
+            "Titlebar": {
+                "_include": "vbox.json::Box",
+                "attributes": {
+                    "Corner Radii.Top Left": 3,
+                    "Corner Radii.Top Right": 3
+                },
+                "children": {
+                    "Exit Button": {
+                        "_include": "titlebarbutton.json::Titlebar Button",
+                        "children": {
+                            "Graphic": {
+                                "children": {
+                                    "Svg": {
+                                        "attributes": {
+                                            "Color": {
+                                                "states": {
+                                                    "Selected": "#e33034"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Maximize Button": "titlebarbutton.json::Titlebar Button",
+                    "Minimize Button": "titlebarbutton.json::Titlebar Button",
+                    "Settings Button": "titlebarbutton.json::Titlebar Button",
+                    "Tab Bar": "vtabbar.json::Tab Bar"
+                }
+            }
+        }
+    }
+}
