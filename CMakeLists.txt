@@ -21,4 +21,5 @@ find_package(Qt6 6.9.1 COMPONENTS Core Gui Widgets Svg Network REQUIRED)
 # Add subdirectories
 add_subdirectory(core)
 add_subdirectory(widgets)
+add_subdirectory(demo)
 # add_subdirectory(colors)
