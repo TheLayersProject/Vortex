@@ -17,7 +17,7 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <VortexWidgets/vthemedirectoriesdialog.h>
+#include <VortexWidgets/vstyledirectoriesdialog.h>
 
 #include <QFileDialog>
 #include <Layers/lstyle.h>
@@ -32,14 +32,14 @@ using Layers::LTheme;
 using Vortex::VButton;
 using Vortex::VGraphic;
 using Vortex::VLabel;
-using Vortex::VThemeDirectoriesDialog;
+using Vortex::VStyleDirectoriesDialog;
 
-VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : VDialog("Theme Directories")
+VStyleDirectoriesDialog::VStyleDirectoriesDialog(QWidget* parent) : VDialog("Style Directories")
 {
 	init_layout();
 	init_directory_list();
 	set_icon(std::make_unique<VGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22)));
-	setObjectName("Theme Directories Dialog");
+	setObjectName("Style Directories Dialog");
 	setFixedSize(620, 370);
 
 	m_new_directory_button->setObjectName("New Directory Button");
@@ -56,9 +56,9 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : VDialog("The
 
 			if (!dir.isEmpty())
 			{
-				qDebug() << QString("New Theme Directory: " + dir);
+				qDebug() << QString("New Style Directory: " + dir);
 
-				vApp->load_themes(dir);
+				vApp->load_user_styles(dir);
 
 				add_directory_label(dir);
 
@@ -71,7 +71,7 @@ VThemeDirectoriesDialog::VThemeDirectoriesDialog(QWidget* parent) : VDialog("The
 	Vortex::apply_layers_style_auto(this);
 }
 
-void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
+void Vortex::VStyleDirectoriesDialog::add_directory_label(const QString& dir)
 {
 	VLabel* directory_label = new VLabel(dir);
 	directory_label->setObjectName("Directory Label");
@@ -87,21 +87,21 @@ void Vortex::VThemeDirectoriesDialog::add_directory_label(const QString& dir)
 	layout_directory_labels->addWidget(directory_label);
 }
 
-void Vortex::VThemeDirectoriesDialog::init_directory_list()
+void Vortex::VStyleDirectoriesDialog::init_directory_list()
 {
-	QVariant _theme_directories = vApp->settings().value("themes/directories");
+	QVariant _style_directories = vApp->settings().value("styles/directories");
 
-	if (_theme_directories.isValid())
+	if (_style_directories.isValid())
 	{
-		QStringList theme_directories = _theme_directories.toStringList();
-		for (const QString& theme_directory : theme_directories)
+		QStringList style_directories = _style_directories.toStringList();
+		for (const QString& style_directory : style_directories)
 		{
-			add_directory_label(theme_directory);
+			add_directory_label(style_directory);
 		}
 	}
 }
 
-void VThemeDirectoriesDialog::init_layout()
+void VStyleDirectoriesDialog::init_layout()
 {
 	layout_directory_labels->setContentsMargins(0, 0, 0, 0);
 

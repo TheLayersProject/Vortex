@@ -1,0 +1,36 @@
+/*
+ * Copyright (C) 2025 Huntr Software LLC
+ *
+ * This file is part of Vortex.
+ *
+ * Vortex is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Vortex is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+#ifndef VFEATURE_H
+#define VFEATURE_H
+
+#include <VortexCore/vortex_core_global.h>
+#include <VortexCore/vortex_core_export.h>
+
+VORTEX_NAMESPACE_BEGIN
+class VORTEX_CORE_EXPORT VFeature
+{
+public:
+    virtual ~VFeature() = default;
+    virtual void initialize() = 0;
+    virtual const char* name() const = 0;
+};
+VORTEX_NAMESPACE_END
+
+#endif // VFEATURE_H

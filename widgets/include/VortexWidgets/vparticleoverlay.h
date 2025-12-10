@@ -17,38 +17,37 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VSTYLESWIDGET_H
-#define VSTYLESWIDGET_H
+#ifndef VPARTICLEOVERLAY_H
+#define VPARTICLEOVERLAY_H
 
 #include <QWidget>
-#include <QVBoxLayout>
-#include <VortexWidgets/vbutton.h>
-#include <VortexWidgets/vscrollarea.h>
 
 #include <VortexWidgets/vortex_widgets_global.h>
+#include <VortexWidgets/vortex_widgets_export.h>
 
-namespace Vortex {
-	class VStylesWidget : public QWidget
-	{
-		Q_OBJECT
+#include "vparticleemitter.h"
 
-	public:
-		VStylesWidget(QWidget* parent = nullptr);
+VORTEX_NAMESPACE_BEGIN
+class VORTEX_WIDGETS_EXPORT VParticleOverlay : public QWidget
+{
+    Q_OBJECT
 
-	private:
-		void init_layout();
-		void init_style_scroller();
+public:
+    explicit VParticleOverlay(QWidget* parent);
+    
+    VParticleEmitter* add_emitter(const QString& image_path);
+    void remove_emitter(VParticleEmitter* emitter);
+    void clear_emitters();
+    
+    const std::vector<std::unique_ptr<VParticleEmitter>>& emitters() const;
 
-		QWidget* m_options_bar{ new QWidget };
+protected:
+    void paintEvent(QPaintEvent* e) override;
+    bool eventFilter(QObject* watched, QEvent* event) override;
 
-		VScrollArea* m_style_scroller{ new VScrollArea };
-		QWidget* m_style_scroller_widget{ new QWidget };
-		QVBoxLayout* style_buttons_vbox{ new QVBoxLayout };
+private:
+    std::vector<std::unique_ptr<VParticleEmitter>> m_emitters;
+};
+VORTEX_NAMESPACE_END
 
-		VButton* m_style_directories_button{ new VButton(
-			std::make_unique<VGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22))
-		) };
-	};
-}
-
-#endif // !VSTYLESWIDGET_H
+#endif // VPARTICLEOVERLAY_H

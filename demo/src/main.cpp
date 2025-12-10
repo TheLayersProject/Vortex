@@ -23,7 +23,6 @@
 
 #include <VortexCore/vapplication.h>
 #include <VortexCore/vgithubrepo.h>
-//#include <QLayers/qlupdatedialog.h>
 
 using namespace Vortex;
 
@@ -32,28 +31,12 @@ int main(int argc, char *argv[])
 	VApplication app(argc, argv,
 		"Vortex Demo",
 		QUuid("e00d2396-12bb-4372-b330-95cb8fae4712"));
-	app.set_github_repo("TheLayersProject/VortexDemo");
-	app.set_publisher("The Layers Project");
+	app.set_github_repo("HuntrSoftware/VortexDemo");
+	app.set_publisher("Huntr Software LLC");
 	app.set_version("0.1.0");
 	app.init();
 
-	//if (app.update_available())
-	//{
-	//	QLUpdateDialog update_dialog =
-	//		QLUpdateDialog(app.version(), app.latest_version());
-
-	//	update_dialog.apply_theme_item(
-	//		activeTheme()->find_item(update_dialog.path()));
-
-	//	if (update_dialog.exec())
-	//	{
-	//		app.download_and_install_update();
-	//		return 0;
-	//	}
-	//}
-
 	VortexDemoWindow window;
-	//window.apply_theme_item(activeTheme()->find_item(window.path()));
 	window.show();
 
 	return app.exec();

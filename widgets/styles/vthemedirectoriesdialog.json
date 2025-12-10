@@ -33,34 +33,6 @@
                     },
                     "Text Label": "vlabel.json::Label"
                 }
-            },
-            "Titlebar": {
-                "children": {
-                    "Exit Button": {
-                        "_include": "vbox.json::Box",
-                        "attributes": {
-                            "Corner Radii.Top Right": 7,
-                            "Fill": "#00000000"
-                        },
-                        "children": {
-                            "Graphic": {
-                                "_include": "vbox.json::Box",
-                                "children": {
-                                    "Svg": {
-                                        "attributes": {
-                                            "Color": {
-                                                "states": {
-                                                    "Selected": "#e33036"
-                                                },
-                                                "value": "#6a6a6a"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
     }

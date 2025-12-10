@@ -43,7 +43,7 @@ VDialog::VDialog(const QString& title, QWidget* parent) :
 	init_layout();
 	init_titlebar();
 	resize(420, 275);
-	setAttribute(Qt::WA_TranslucentBackground);
+	//setAttribute(Qt::WA_TranslucentBackground);
 	setWindowFlags(Qt::FramelessWindowHint);
 	update();
 }

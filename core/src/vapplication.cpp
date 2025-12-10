@@ -34,6 +34,7 @@
 #include <VortexCore/vboxstyle.h>
 #include <VortexCore/vboxstyle.h>
 #include <VortexCore/vdownloader.h>
+#include <VortexCore/vfeature.h>
 #include <VortexCore/vgithubrepo.h>
 
 using Layers::LAttribute;
@@ -41,7 +42,8 @@ using Layers::LString;
 using Layers::LStyle;
 using Layers::LStyleList;
 using Layers::LTheme;
-using Vortex::VApplication;
+
+using namespace Vortex;
 
 LTheme* Vortex::activeTheme()
 {
@@ -137,10 +139,13 @@ void VApplication::init()
 	m_name_underscored = name_parts.join("_");
 
 	init_themes();
-	init_styles();
+	init_user_styles();
 	init_active_theme();
 
 	setStyle(new VBoxStyle);
+
+	for (auto feature : features())
+		feature->initialize();
 
 	m_initialized = true;
 }
@@ -176,6 +181,15 @@ void VApplication::load_themes(const QString& theme_directory)
 	QStringList theme_directories = m_settings.value("themes/directories").toStringList();
 	theme_directories.append(theme_directory);
 	m_settings.setValue("themes/directories", theme_directories);
+}
+
+void VApplication::load_user_styles(const QString& style_directory)
+{
+	lController.load_user_styles(style_directory.toStdString());
+
+	QStringList style_directories = m_settings.value("styles/directories").toStringList();
+	style_directories.append(style_directory);
+	m_settings.setValue("styles/directories", style_directories);
 }
 
 bool VApplication::update_available()
@@ -243,6 +257,11 @@ QString VApplication::name()
 void VApplication::reapply_theme()
 {
 	apply_theme(lController.active_theme());
+}
+
+void VApplication::register_feature(VFeature* feature)
+{
+	features().push_back(feature);
 }
 
 void VApplication::set_github_repo(const QString& github_repo_url)
@@ -326,10 +345,29 @@ void VApplication::init_themes()
 	}
 }
 
-void VApplication::init_styles()
+void VApplication::init_user_styles()
 {
-	QVariant _active_style_IDs = m_settings.value("styles/active_styles");
+	// Load user styles from user directories (if present)
+	QVariant _style_directories = m_settings.value("styles/directories");
 
+	if (_style_directories.isValid())
+	{
+		QStringList style_directories = _style_directories.toStringList();
+		for (const QString& style_directory : style_directories)
+		{
+			// Process each style directory
+			qDebug() << "Vortex: VApplication: Loading user styles from:" << style_directory;
+
+			lController.load_user_styles(style_directory.toStdString());
+		}
+	}
+	else
+	{
+		qDebug() << "Vortex: VApplication: No user style directories found.";
+	}
+
+	QVariant _active_style_IDs = m_settings.value("styles/active_styles");
+	
 	if (_active_style_IDs.isValid())
 	{
 		QStringList active_style_IDs = _active_style_IDs.toStringList();
@@ -369,4 +407,10 @@ void VApplication::init_latest_version()
 				json_doc.array().first().toObject()["name"].toString();
 		}
 	}
+}
+
+std::vector<VFeature*>& VApplication::features()
+{
+	static std::vector<VFeature*> s_features;
+	return s_features;
 }

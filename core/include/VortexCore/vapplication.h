@@ -39,6 +39,7 @@ VORTEX_NAMESPACE_BEGIN
 VORTEX_CORE_EXPORT Layers::LTheme* activeTheme();
 
 class VDownloader;
+class VFeature;
 class VGitHubRepo;
 class VMainWindow;
 
@@ -80,9 +81,13 @@ public:
 
 	void load_themes(const QString& theme_directory);
 
+	void load_user_styles(const QString& style_directory);
+
 	QString name();
 
 	void reapply_theme();
+
+	static void register_feature(VFeature* feature);
 
 	void set_github_repo(const QString& github_repo_url);
 
@@ -102,8 +107,10 @@ private:
 	void init_fonts();
 	void init_active_theme();
 	void init_themes();
-	void init_styles();
+	void init_user_styles();
 	void init_latest_version();
+
+	static std::vector<VFeature*>& features();
 
 	bool m_initialized{ false };
 

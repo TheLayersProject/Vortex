@@ -25,11 +25,13 @@
 #include <VortexWidgets/vcheckbox.h>
 #include <VortexCore/vapplication.h>
 #include <VortexWidgets/vstylebutton.h>
+#include <VortexWidgets/vstyledirectoriesdialog.h>
 
 using Layers::LStyle;
 using Layers::LStyleList;
 using Vortex::VCheckBox;
 using Vortex::VStylesWidget;
+using Vortex::VStyleDirectoriesDialog;
 
 VStylesWidget::VStylesWidget(QWidget* parent) : QWidget(parent)
 {
@@ -40,6 +42,24 @@ VStylesWidget::VStylesWidget(QWidget* parent) : QWidget(parent)
 	m_options_bar->setObjectName("Options Bar");
 	m_options_bar->setFixedHeight(50);
 
+	m_style_directories_button->setObjectName("Style Directories Button");
+	m_style_directories_button->setFixedSize(40, 40);
+	m_style_directories_button->set_pointing_hand_cursor();
+	m_style_directories_button->layout()->setContentsMargins(0, 0, 0, 0);
+
+	connect(m_style_directories_button, &VButton::clicked,
+		[this]
+		{
+			VStyleDirectoriesDialog style_directories_dialog = VStyleDirectoriesDialog();
+
+			Vortex::center(&style_directories_dialog, window());
+
+			if (style_directories_dialog.exec())
+			{
+				// ?
+			}
+		});
+
 	m_style_scroller->setObjectName("Style Scroller");
 
 	m_style_scroller_widget->setObjectName("Style Scroller Widget");
@@ -47,6 +67,13 @@ VStylesWidget::VStylesWidget(QWidget* parent) : QWidget(parent)
 
 void VStylesWidget::init_layout()
 {
+	QHBoxLayout* options_bar_layout = new QHBoxLayout;
+	options_bar_layout->setContentsMargins(8, 0, 8, 0);
+	options_bar_layout->setSpacing(10);
+	options_bar_layout->addWidget(m_style_directories_button);
+	options_bar_layout->addStretch();
+	m_options_bar->setLayout(options_bar_layout);
+
 	QVBoxLayout* main_layout = new QVBoxLayout;
 	main_layout->setContentsMargins(0, 0, 0, 0);
 	main_layout->setSpacing(0);
@@ -59,7 +86,7 @@ void Vortex::VStylesWidget::init_style_scroller()
 {
 	for (auto& _style : lController.styles())
 	{
-		LStyle* style = _style.second;
+		LStyle* style = _style.second.get();
 
 		if (!style->publisher().empty())
 		{

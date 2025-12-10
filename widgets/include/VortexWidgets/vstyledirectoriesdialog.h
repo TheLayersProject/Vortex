@@ -17,38 +17,35 @@
  * along with Vortex. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef VSTYLESWIDGET_H
-#define VSTYLESWIDGET_H
-
-#include <QWidget>
-#include <QVBoxLayout>
-#include <VortexWidgets/vbutton.h>
-#include <VortexWidgets/vscrollarea.h>
+#ifndef VSTYLEDIRECTORIESDIALOG_H
+#define VSTYLEDIRECTORIESDIALOG_H
 
 #include <VortexWidgets/vortex_widgets_global.h>
 
+#include <VortexWidgets/vbutton.h>
+#include <VortexWidgets/vdialog.h>
+
 namespace Vortex {
-	class VStylesWidget : public QWidget
+	class VStyleDirectoriesDialog : public VDialog
 	{
 		Q_OBJECT
 
 	public:
-		VStylesWidget(QWidget* parent = nullptr);
+		VStyleDirectoriesDialog(QWidget* parent = nullptr);
 
 	private:
+		void add_directory_label(const QString& dir);
+		void init_directory_list();
 		void init_layout();
-		void init_style_scroller();
 
-		QWidget* m_options_bar{ new QWidget };
+		QVBoxLayout* layout_directory_labels{ new QVBoxLayout };
 
-		VScrollArea* m_style_scroller{ new VScrollArea };
-		QWidget* m_style_scroller_widget{ new QWidget };
-		QVBoxLayout* style_buttons_vbox{ new QVBoxLayout };
-
-		VButton* m_style_directories_button{ new VButton(
-			std::make_unique<VGraphic>(":/images/theme_directories_icon.svg", QSize(25, 22))
-		) };
+		VButton* m_new_directory_button{
+			new VButton(
+				std::make_unique<VGraphic>(
+					":/images/new_theme_directory_icon.svg", QSize(27, 26)),
+				"New Style Directory") };
 	};
 }
 
-#endif // !VSTYLESWIDGET_H
+#endif // !VSTYLEDIRECTORIESDIALOG_H

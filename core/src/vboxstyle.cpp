@@ -322,6 +322,10 @@ void Vortex::apply_layers_style(QObject* obj, LStyle* style)
 
     QCoreApplication::postEvent(obj, new VStyleAppliedEvent());
 
+    /* Post event when user-style is applied to style */
+    style->on_style_applied([obj]() {
+        QCoreApplication::postEvent(obj, new VStyleAppliedEvent()); } );
+
     // RECURSIVE PART: Apply child styles to child widgets
     const auto& children_map = style->children();
     if (!children_map.empty()) {
