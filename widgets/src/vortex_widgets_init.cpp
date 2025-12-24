@@ -18,12 +18,12 @@
  */
 
 #include <VortexWidgets/vortex_widgets_init.h>
-#include <VortexWidgets/vortex_widgets_global.h>
 
 #include <QDebug>
 
-#include <Layers/lstring.h>
 #include <Layers/lcontroller.h>
+
+using namespace Vortex;
 
 namespace Layers {
     namespace Resources {
@@ -31,16 +31,10 @@ namespace Layers {
     }
 }
 
-VORTEX_NAMESPACE_BEGIN
-
 Initializer_WIDGETS::Initializer_WIDGETS()
 {
     // Initialize Layers styles
     Layers::Resources::initResources_styles();
     lController.include_internal("/styles/vortex");
     qDebug() << "Vortex: Loaded Styles";
-}
-
-static Initializer_WIDGETS vortex_widgets_initializer;
-
-VORTEX_NAMESPACE_END
+} static Initializer_WIDGETS vortex_widgets_initializer;

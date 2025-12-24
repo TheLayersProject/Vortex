@@ -33,7 +33,7 @@ if(WIN32)
     add_custom_command(TARGET vortex-demo POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E echo "Copying Layers DLL to VortexDemo output directory"
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<IF:$<CONFIG:Debug>,${LAYERS_DIR}/bin/Debug/Layersd.dll,${LAYERS_DIR}/bin/Release/Layers.dll>
+            $<IF:$<CONFIG:Debug>,${LAYERS_DIR}/bin/Layersd.dll,${LAYERS_DIR}/bin/Layers.dll>
             $<TARGET_FILE_DIR:vortex-demo>
     )
     

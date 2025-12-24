@@ -1,24 +1,20 @@
 # Enable AUTOMOC for this directory
 set(CMAKE_AUTOMOC ON)
 
-# Set the resource compiler path based on configuration
-if (WIN32)
-    set(RESOURCE_COMPILER_DEBUG "${LAYERS_DIR}/bin/Debug/LayersResourceCompilerd.exe")
-    set(RESOURCE_COMPILER_RELEASE "${LAYERS_DIR}/bin/Release/LayersResourceCompiler.exe")
-else()
-    set(RESOURCE_COMPILER_DEBUG "${LAYERS_DIR}/bin/LayersResourceCompilerd")
-    set(RESOURCE_COMPILER_RELEASE "${LAYERS_DIR}/bin/LayersResourceCompiler")
-endif()
+set(LAYERS_RC_DEB "${LAYERS_DIR}/bin/LayersResourceCompilerd")
+set(LAYERS_RC_REL "${LAYERS_DIR}/bin/LayersResourceCompiler")
 
-# Generate styles.cpp from styles.lrc using the Layers resource compiler
+set(STYLES_LRC "${CMAKE_CURRENT_SOURCE_DIR}/styles/styles.lrc")
+set(STYLES_CPP "${CMAKE_CURRENT_BINARY_DIR}/styles.cpp")
+
 add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/styles.cpp
-    COMMAND $<$<CONFIG:Debug>:${RESOURCE_COMPILER_DEBUG}>$<$<CONFIG:Release>:${RESOURCE_COMPILER_RELEASE}>
-        ${CMAKE_CURRENT_SOURCE_DIR}/styles/styles.lrc
-        ${CMAKE_CURRENT_BINARY_DIR}/styles.cpp
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/styles/styles.lrc
-    COMMENT "Generating styles.cpp from styles.lrc"
-    VERBATIM
+  OUTPUT ${STYLES_CPP}
+  COMMAND $<$<CONFIG:Debug>:${LAYERS_RC_DEB}>$<$<CONFIG:Release>:${LAYERS_RC_REL}>
+    ${STYLES_LRC}
+    ${STYLES_CPP}
+  DEPENDS ${STYLES_LRC}
+  COMMENT "Generating ${STYLES_CPP} from ${STYLES_LRC}"
+  VERBATIM
 )
 
 # Set the source files for VortexWidgets
